@@ -4,10 +4,17 @@ jdk:
 script: './mvnw clean install'
 install: true
 deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: fr.glhez.eclipse.releng.updatesite/target/repository/  # or remove this line to upload from root of repo
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: fr.glhez.eclipse.releng.updatesite/target/repository
+    github_token: $GITHUB_TOKEN
+    on:
+      branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: site
+    github_token: $GITHUB_TOKEN
+    on:
+      branch: master
+
 
