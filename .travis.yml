@@ -1,7 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
-script: './mvnw clean install'
+script: 
+  - './mvnw clean install'
+  - cp -v site/index.md fr.glhez.eclipse.releng.updatesite/target/repository
 install: true
 deploy:
   - provider: pages
@@ -10,11 +12,3 @@ deploy:
     github_token: $GITHUB_TOKEN
     on:
       branch: master
-  - provider: pages
-    skip_cleanup: true
-    local_dir: site
-    github_token: $GITHUB_TOKEN
-    on:
-      branch: master
-
-
