@@ -1,6 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
+script: './mvnw clean install'
+install: true
 deploy:
   provider: pages
   skip_cleanup: true
