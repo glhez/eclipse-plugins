@@ -1,4 +1,4 @@
-# What about this collection ?
+# What about this collection ? [![Build Status](https://travis-ci.org/glhez/eclipse-plugins.svg?branch=master)](https://travis-ci.org/glhez/eclipse-plugins)
 
 The update site will contains some plugins:
 
