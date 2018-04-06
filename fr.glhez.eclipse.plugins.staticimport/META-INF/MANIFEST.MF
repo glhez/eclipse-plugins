@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %Bundle-Name
+Bundle-Name: Static Import Plugin
 Bundle-SymbolicName: fr.glhez.eclipse.plugins.staticimport;singleton:=true
 Automatic-Module-Name: fr.glhez.eclipse.plugins.staticimport
 Bundle-Version: 1.0.0.qualifier
