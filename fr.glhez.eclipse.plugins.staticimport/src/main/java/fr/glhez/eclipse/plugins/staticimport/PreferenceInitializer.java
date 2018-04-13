@@ -5,13 +5,17 @@ import static java.util.stream.Collectors.joining;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.BorderFactory;
 import javax.swing.SwingUtilities;
 
 import org.eclipse.jdt.ui.PreferenceConstants;
@@ -46,6 +50,19 @@ public class PreferenceInitializer implements IStartup {
     copy.add(newTypeImport(Optional.class));
     copy.add(newTypeImport(Collectors.class));
     copy.add(newTypeImport(SwingUtilities.class));
+    copy.add(newTypeImport(BorderFactory.class));
+    copy.add(newTypeImport(Comparator.class));
+    copy.add(newTypeImport(Function.class));
+    copy.add(newTypeImport(Predicate.class));
+    copy.add(newTypeImport(Character.class));
+    copy.add(newTypeImport(String.class));
+    copy.add(newTypeImport(Boolean.class));
+    copy.add(newTypeImport(Byte.class));
+    copy.add(newTypeImport(Short.class));
+    copy.add(newTypeImport(Integer.class));
+    copy.add(newTypeImport(Long.class));
+    copy.add(newTypeImport(Float.class));
+    copy.add(newTypeImport(Double.class));
 
     // Test API
     copy.add(newTypeImport("org.mockito.Mockito"));
