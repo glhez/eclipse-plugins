@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -63,6 +64,7 @@ public class PreferenceInitializer implements IStartup {
     copy.add(newTypeImport(Long.class));
     copy.add(newTypeImport(Float.class));
     copy.add(newTypeImport(Double.class));
+    copy.add(newTypeImport(EnumSet.class));
 
     // Test API
     copy.add(newTypeImport("org.mockito.Mockito"));
