@@ -68,6 +68,7 @@ public class PreferenceInitializer implements IStartup {
 
     // Test API
     copy.add(newTypeImport("org.mockito.Mockito"));
+    copy.add(newTypeImport("org.mockito.ArgumentMatchers"));
     copy.add(newTypeImport("org.assertj.core.api.Assertions"));
     copy.add(newTypeImport("org.assertj.core.api.AssertionsForClassTypes"));
     copy.add(newTypeImport("org.assertj.core.api.AssertionsForInterfaceTypes"));
