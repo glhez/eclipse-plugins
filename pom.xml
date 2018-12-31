@@ -17,7 +17,7 @@
     <enforcer.requireMavenVersion>[3.6.0,3.7.0)</enforcer.requireMavenVersion>
     <enforcer.requireJavaVersion>[1.8,1.9)</enforcer.requireJavaVersion>
 
-    <dependency.tycho.version>1.2.0</dependency.tycho.version>
+    <dependency.tycho.version>1.3.0</dependency.tycho.version>
     <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
   </properties>
   
@@ -29,8 +29,8 @@
   </modules>
 
   <repositories>
-    <repository> <id>eclipse.org-2018-09</id>     <url>http://download.eclipse.org/releases/2018-09/</url>   <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.9</id> <url>http://download.eclipse.org/eclipse/updates/4.9</url> <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-2018-12</id>     <url>http://download.eclipse.org/releases/2018-12/</url>   <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-updates-4.10</id> <url>http://download.eclipse.org/eclipse/updates/4.10</url> <layout>p2</layout> </repository>
   </repositories>  
 
   <build>
@@ -40,15 +40,15 @@
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-antrun-plugin</artifactId>               <version>1.8</version>                                </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-clean-plugin</artifactId>                <version>3.1.0</version>                              </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId>             <version>3.8.0</version>                              </plugin>
-        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-deploy-plugin</artifactId>               <version>2.8.2</version>                           </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-enforcer-plugin</artifactId>             <version>3.0.0-M2</version>                           </plugin>
-        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-install-plugin</artifactId>              <version>2.5.2</version>                           </plugin>
-        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId>                  <version>3.1.0</version>                              </plugin>
+        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-deploy-plugin</artifactId>               <version>3.0.0-M1</version>                           </plugin>
+        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-install-plugin</artifactId>              <version>3.0.0-M1</version>                           </plugin>
+        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId>                  <version>3.1.1</version>                              </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId>           <version>3.1.1</version>                              </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-resources-plugin</artifactId>            <version>3.1.0</version>                              </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-site-plugin</artifactId>                 <version>3.7.1</version>                              </plugin>
         <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-source-plugin</artifactId>               <version>3.0.1</version>                              </plugin>
-        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId>             <version>2.22.1</version>                           </plugin>
+        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId>             <version>3.0.0-M3</version>                           </plugin>
 
         <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>target-platform-configuration</artifactId>     <version>${dependency.tycho.version}</version>        </plugin>
         <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-compiler-plugin</artifactId>             <version>${dependency.tycho.version}</version>        </plugin>
