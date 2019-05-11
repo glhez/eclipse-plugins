@@ -25,7 +25,7 @@ import org.eclipse.ui.IStartup;
 
 /**
  * This was inspired from SWTBOT PreferenceInitializer.
- * 
+ *
  * @author gael.lhez
  */
 public class PreferenceInitializer implements IStartup {
