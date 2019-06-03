@@ -18,8 +18,13 @@
   <packaging>pom</packaging>
 
   <properties>
-    <!-- Tycho plugin does not like maven 3.6.1 -->
-    <enforcer.requireMavenVersion>[3.6.0,3.7.0)</enforcer.requireMavenVersion>
+    <!-- Tycho plugin does not like maven 3.6.1
+
+      see https://issues.apache.org/jira/browse/MNG-6642
+          https://issues.apache.org/jira/browse/MNG-5995
+
+    -->
+    <enforcer.requireMavenVersion>[3.6.0,3.6.1)</enforcer.requireMavenVersion>
 
     <dependency.tycho.version>1.4.0</dependency.tycho.version>
     <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
@@ -32,10 +37,10 @@
   </modules>
 
   <repositories>
+    <repository> <id>github-maven-parent</id>      <url>https://raw.githubusercontent.com/glhez/maven-repository/master/releases/</url> </repository>
+
     <repository> <id>eclipse.org-2019-03</id>      <url>https://download.eclipse.org/releases/2019-03/</url>                            <layout>p2</layout> </repository>
     <repository> <id>eclipse.org-updates-4.11</id> <url>https://download.eclipse.org/eclipse/updates/4.11</url>                         <layout>p2</layout> </repository>
-
-    <repository> <id>github-maven-parent</id>      <url>https://raw.githubusercontent.com/glhez/maven-repository/master/releases/</url> </repository>
   </repositories>
 
   <build>

@@ -20,7 +20,9 @@
         <executions>
           <execution>
             <phase>package</phase>
-            <goals>  <goal>archive-repository</goal> </goals>
+            <goals>
+              <goal>archive-repository</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
