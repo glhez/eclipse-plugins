@@ -4,5 +4,4 @@
   <copyright>©</copyright>
   <license>©</license>
   <plugin id="fr.glhez.eclipse.plugins.staticimport"  download-size="0" install-size="0" version="0.0.0" unpack="false" />
-  <plugin id="fr.glhez.eclipse.plugins.editoractions" download-size="0" install-size="0" version="0.0.0" unpack="false" />
 </feature>

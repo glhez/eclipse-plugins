@@ -23,7 +23,6 @@
 
   <modules>
     <module>fr.glhez.eclipse.plugins.staticimport</module>
-    <module>fr.glhez.eclipse.plugins.editoractions</module>
     <module>fr.glhez.eclipse.features.all</module>
     <module>fr.glhez.eclipse.releng.updatesite</module>
   </modules>

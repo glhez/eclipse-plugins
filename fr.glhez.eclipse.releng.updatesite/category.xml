@@ -6,9 +6,6 @@
   <bundle id="fr.glhez.eclipse.plugins.staticimport" version="1.0.0.qualifier">
     <category name="fr.glhez.eclipse.releng.updatesite.cat2"/>
   </bundle>
-  <bundle id="fr.glhez.eclipse.plugins.editoractions" version="1.0.0.qualifier">
-    <category name="fr.glhez.eclipse.releng.updatesite.cat2"/>
-  </bundle>
-  <category-def name="fr.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin Features"/>
-  <category-def name="fr.glhez.eclipse.releng.updatesite.cat2" label="glhez&apos;s Eclipse Plugin Features"/>
+  <category-def name="fr.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin (Features)"/>
+  <category-def name="fr.glhez.eclipse.releng.updatesite.cat2" label="glhez&apos;s Eclipse Plugin (Plugins)"/>
 </site>
