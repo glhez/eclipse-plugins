@@ -41,22 +41,9 @@ public class PreferenceInitializer implements IStartup {
 
     final Set<String> copy = new LinkedHashSet<>(initial);
 
-    // JDK
-    copy.add(newTypeImport(Objects.class));
-    copy.add(newTypeImport(Math.class));
-    copy.add(newTypeImport(Collections.class));
-    copy.add(newTypeImport(Arrays.class));
-    copy.add(newTypeImport(Files.class));
-    copy.add(newTypeImport(Stream.class));
-    copy.add(newTypeImport(Optional.class));
-    copy.add(newTypeImport(Collectors.class));
-    copy.add(newTypeImport(SwingUtilities.class));
-    copy.add(newTypeImport(BorderFactory.class));
-    copy.add(newTypeImport(Comparator.class));
-    copy.add(newTypeImport(Function.class));
-    copy.add(newTypeImport(Predicate.class));
-    copy.add(newTypeImport(Character.class));
+    // jdk [basic types]
     copy.add(newTypeImport(String.class));
+    copy.add(newTypeImport(Character.class));
     copy.add(newTypeImport(Boolean.class));
     copy.add(newTypeImport(Byte.class));
     copy.add(newTypeImport(Short.class));
@@ -64,7 +51,34 @@ public class PreferenceInitializer implements IStartup {
     copy.add(newTypeImport(Long.class));
     copy.add(newTypeImport(Float.class));
     copy.add(newTypeImport(Double.class));
+    copy.add(newTypeImport(Optional.class));
+
+    // jdk [util]
+    copy.add(newTypeImport(Objects.class));
+    copy.add(newTypeImport(Math.class));
+
+    // jdk [lambda]
+    copy.add(newTypeImport(Comparator.class));
+    copy.add(newTypeImport(Function.class));
+    copy.add(newTypeImport(Predicate.class));
+
+    // jdk [collection and stream]
     copy.add(newTypeImport(EnumSet.class));
+    copy.add(newTypeImport(Collections.class));
+    copy.add(newTypeImport(Arrays.class));
+    copy.add(newTypeImport(Stream.class));
+    copy.add(newTypeImport(Collectors.class));
+
+    // jdk 9++ [collection and stream]
+    copy.add(newTypeImport("java.util.List"));
+    copy.add(newTypeImport("java.util.Map"));
+
+    // jdk [nio2]
+    copy.add(newTypeImport(Files.class));
+
+    // jdk [awt/swing]
+    copy.add(newTypeImport(SwingUtilities.class));
+    copy.add(newTypeImport(BorderFactory.class));
 
     // Test API
     copy.add(newTypeImport("org.mockito.Mockito"));
@@ -73,6 +87,8 @@ public class PreferenceInitializer implements IStartup {
     copy.add(newTypeImport("org.assertj.core.api.AssertionsForClassTypes"));
     copy.add(newTypeImport("org.assertj.core.api.AssertionsForInterfaceTypes"));
     copy.add(newTypeImport("org.junit.jupiter.api.Assertions"));
+
+    // apache
     copy.add(newTypeImport("org.apache.commons.lang3.StringUtils"));
 
     if (!copy.equals(initial)) {
