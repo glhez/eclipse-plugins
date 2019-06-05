@@ -9,7 +9,7 @@ cache:
   directories:
     - $HOME/.m2/repository
 script:
-  - 'find "$HOME/.m2/repository" -type f ( -name "*.lastUpdated" -or -name "*SNAPSHOT*" ")" -print -delete'
+  - 'find "$HOME/.m2/repository" -type f "(" -name "*.lastUpdated" -or -name "*SNAPSHOT*" ")" -print -delete'
   - './mvnw clean install'
   - cp -v site/index.md com.github.glhez.eclipse.releng.updatesite/target/repository
 install: true
