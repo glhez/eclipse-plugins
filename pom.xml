@@ -10,7 +10,7 @@
     <relativePath>../glhez-project-settings/java8/pom.xml</relativePath>
   </parent>
 
-  <groupId>fr.glhez.eclipse</groupId>
+  <groupId>com.github.glhez.eclipse</groupId>
   <artifactId>parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
@@ -31,9 +31,9 @@
   </properties>
 
   <modules>
-    <module>fr.glhez.eclipse.plugins.staticimport</module>
-    <module>fr.glhez.eclipse.features.all</module>
-    <module>fr.glhez.eclipse.releng.updatesite</module>
+    <module>com.github.glhez.eclipse.plugins.staticimport</module>
+    <module>com.github.glhez.eclipse.features.all</module>
+    <module>com.github.glhez.eclipse.releng.updatesite</module>
   </modules>
 
   <repositories>

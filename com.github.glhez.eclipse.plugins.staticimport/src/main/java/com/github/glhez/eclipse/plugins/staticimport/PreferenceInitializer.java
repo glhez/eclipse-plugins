@@ -1,4 +1,4 @@
-package fr.glhez.eclipse.plugins.staticimport;
+package com.github.glhez.eclipse.plugins.staticimport;
 
 import static java.util.stream.Collectors.joining;
 

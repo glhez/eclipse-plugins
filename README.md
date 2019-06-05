@@ -14,4 +14,15 @@ To install the plugin(s), simply follow theses step:
 2. Add https://glhez.github.io/eclipse-plugins (simply paste the URL and press enter, it should work)
 3. Select the plugin you want to install
 
-[1]: fr.glhez.eclipse.plugins.staticimport/src/main/java/fr/glhez/eclipse/plugins/staticimport/PreferenceInitializer.java
+# Old plugin
+
+For various reasons, I began to rename my project package from `fr.glhez` to `com.github.glhez`.
+I did not find a simple way to say to Eclipse that the new plugin/feature are superseding the previous one.
+
+TL/DR: **old plugin `fr.glhez.eclipse.plugins.staticimport` / feature `fr.glhez.eclipse.features.all` must be removed**.
+
+If you forget to clean your Eclipse, then the `PreferenceInitializer` will get called twice which is unneeded.
+
+
+
+[1]: com.github.glhez.eclipse.plugins.staticimport/src/main/java/com/github/glhez/eclipse/plugins/staticimport/PreferenceInitializer.java
