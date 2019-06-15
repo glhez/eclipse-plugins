@@ -43,6 +43,14 @@
     <repository> <id>eclipse.org-updates-4.11</id> <url>https://download.eclipse.org/eclipse/updates/4.11</url>                         <layout>p2</layout> </repository>
   </repositories>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>github-glhez-repo-plugin</id>
+      <url>https://raw.githubusercontent.com/glhez/maven-repository/master/releases/</url>
+      <snapshots> <enabled>false</enabled> </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <defaultGoal>verify</defaultGoal>
     <pluginManagement>
