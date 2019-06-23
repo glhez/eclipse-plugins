@@ -29,3 +29,9 @@ hs_err_pid*
 # maven 
 target/
 /.profiler
+*.versionsBackup
+
+# vim
+*.swp
+
+
