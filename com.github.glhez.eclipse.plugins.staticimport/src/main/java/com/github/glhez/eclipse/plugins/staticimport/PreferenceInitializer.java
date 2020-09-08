@@ -37,7 +37,7 @@ public class PreferenceInitializer implements IStartup {
     imports.addAll(list);
     if (imports.addAll(getDefaultImports())) {
       final String value = imports.stream().collect(joining(PREFERENCE_DELIMITER));
-      store.setDefault(key, value);
+      store.setValue(key, value);
     }
   }
 
