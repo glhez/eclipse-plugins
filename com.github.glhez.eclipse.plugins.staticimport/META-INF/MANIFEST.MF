@@ -4,10 +4,7 @@ Bundle-Name: Static Import Plugin
 Bundle-SymbolicName: com.github.glhez.eclipse.plugins.staticimport;singleton:=true
 Automatic-Module-Name: com.github.glhez.eclipse.plugins.staticimport
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-11,
- JavaSE-12,
- JavaSE-13,
- JavaSE-14
+Bundle-RequiredExecutionEnvironment: JavaSE-11, JavaSE-14
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.jdt.ui, org.eclipse.core.runtime, org.eclipse.ui
 Export-Package: com.github.glhez.eclipse.plugins.staticimport
