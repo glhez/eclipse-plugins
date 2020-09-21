@@ -4,8 +4,7 @@
     <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
   </feature>
   <bundle id="com.github.glhez.eclipse.plugins.staticimport" version="1.0.0.qualifier">
-    <category name="com.github.glhez.eclipse.releng.updatesite.cat2"/>
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
   </bundle>
-  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin (Features)"/>
-  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat2" label="glhez&apos;s Eclipse Plugin (Plugins)"/>
+  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin"/>
 </site>
