@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-11</artifactId>
-    <version>32</version>
+    <version>33-SNAPSHOT</version>
     <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
     <relativePath />
   </parent>
@@ -18,12 +18,13 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dependency.tycho.version>2.1.0</dependency.tycho.version>
+    <dependency.tycho.version>2.2.0</dependency.tycho.version>
     <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
   </properties>
 
   <modules>
     <module>com.github.glhez.eclipse.plugins.staticimport</module>
+    <module>com.github.glhez.eclipse.plugins.perspective</module>
     <module>com.github.glhez.eclipse.features.all</module>
     <module>com.github.glhez.eclipse.releng.updatesite</module>
   </modules>

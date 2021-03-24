@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="4.7"?>
+<plugin>
+ <extension point="org.eclipse.ui.perspectives">
+   <perspective id="com.github.glhez.eclipse.plugins.perspective.Java" 
+                name="G [Java]" 
+                class="com.github.glhez.eclipse.plugins.perspective.CustomJavaPerspectiveFactory" 
+                icon="icons/jperspective.png"
+                />
+   <perspective id="com.github.glhez.eclipse.plugins.perspective.Debug" 
+                name="G [Debug]" 
+                class="com.github.glhez.eclipse.plugins.perspective.CustomDebugPerspectiveFactory" 
+                icon="icons/debug_persp.png"
+                />
+ </extension>
+</plugin>
