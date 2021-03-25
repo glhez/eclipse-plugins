@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-11</artifactId>
-    <version>33-SNAPSHOT</version>
+    <version>33</version>
     <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
     <relativePath />
   </parent>
@@ -30,16 +30,16 @@
   </modules>
 
   <repositories>
-    <repository> <id>github-maven-parent</id>      <url>https://raw.githubusercontent.com/glhez/maven-repository/master/releases/</url> </repository>
+    <repository> <id>github-maven-parent</id>      <url>https://glhez.github.io/maven-repository/releases/</url> </repository>
 
-    <repository> <id>eclipse.org-2020-12</id>      <url>http://download.eclipse.org/releases/2020-12</url>     <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.18</id> <url>http://download.eclipse.org/eclipse/updates/4.18</url> <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-2021-03</id>      <url>http://download.eclipse.org/releases/2021-03</url>     <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-updates-4.19</id> <url>http://download.eclipse.org/eclipse/updates/4.19</url> <layout>p2</layout> </repository>
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
       <id>github-glhez-repo-plugin</id>
-      <url>https://raw.githubusercontent.com/glhez/maven-repository/master/releases/</url>
+      <url>https://glhez.github.io/maven-repository/releases/</url>
       <snapshots> <enabled>false</enabled> </snapshots>
     </pluginRepository>
   </pluginRepositories>

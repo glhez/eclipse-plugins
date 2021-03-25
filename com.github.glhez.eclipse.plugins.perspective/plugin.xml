@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="4.7"?>
 <plugin>
- <extension point="org.eclipse.ui.perspectives">
-   <perspective id="com.github.glhez.eclipse.plugins.perspective.Java" 
-                name="G [Java]" 
-                class="com.github.glhez.eclipse.plugins.perspective.CustomJavaPerspectiveFactory" 
+  <extension point="org.eclipse.ui.perspectives">
+    <perspective id="com.github.glhez.eclipse.plugins.perspective.Java"
+                name="Java [G]"
+                class="com.github.glhez.eclipse.plugins.perspective.CustomJavaPerspectiveFactory"
                 icon="icons/jperspective.png"
                 />
-   <perspective id="com.github.glhez.eclipse.plugins.perspective.Debug" 
-                name="G [Debug]" 
-                class="com.github.glhez.eclipse.plugins.perspective.CustomDebugPerspectiveFactory" 
+    <perspective id="com.github.glhez.eclipse.plugins.perspective.Debug"
+                name="Debug [G]"
+                class="com.github.glhez.eclipse.plugins.perspective.CustomDebugPerspectiveFactory"
                 icon="icons/debug_persp.png"
                 />
- </extension>
+  </extension>
+  <extension
+       point="org.eclipse.ui.ide.markerSupport">
+    <problemFilter
+          enabled="false"
+          id="com.github.glhez.eclipse.plugins.perspective.problemFilter1"
+          name="com.github.glhez.eclipse.plugins.perspective.problemFilter1"
+          scope="ON_ANY"
+          severity="WARNING">
+
+    </problemFilter>
+  </extension>
 </plugin>
