@@ -6,5 +6,6 @@
   <bundle id="com.github.glhez.eclipse.plugins.staticimport" version="1.0.0.qualifier">
     <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
   </bundle>
+  <bundle id="com.github.glhez.eclipse.plugins.perspective" version="1.0.0.qualifier" />
   <category-def name="com.github.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin"/>
 </site>

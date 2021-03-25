@@ -2,26 +2,41 @@
 <?eclipse version="4.7"?>
 <plugin>
   <extension point="org.eclipse.ui.perspectives">
-    <perspective id="com.github.glhez.eclipse.plugins.perspective.Java"
-                name="Java [G]"
-                class="com.github.glhez.eclipse.plugins.perspective.CustomJavaPerspectiveFactory"
-                icon="icons/jperspective.png"
-                />
-    <perspective id="com.github.glhez.eclipse.plugins.perspective.Debug"
-                name="Debug [G]"
-                class="com.github.glhez.eclipse.plugins.perspective.CustomDebugPerspectiveFactory"
-                icon="icons/debug_persp.png"
-                />
+    <perspective id="com.github.glhez.eclipse.plugins.perspective.Java" name="Java [G]" class="com.github.glhez.eclipse.plugins.perspective.CustomJavaPerspectiveFactory" icon="icons/jperspective.png" />
+    <perspective id="com.github.glhez.eclipse.plugins.perspective.Debug" name="Debug [G]" class="com.github.glhez.eclipse.plugins.perspective.CustomDebugPerspectiveFactory" icon="icons/debug_persp.png" />
   </extension>
-  <extension
-       point="org.eclipse.ui.ide.markerSupport">
-    <problemFilter
-          enabled="false"
-          id="com.github.glhez.eclipse.plugins.perspective.problemFilter1"
-          name="com.github.glhez.eclipse.plugins.perspective.problemFilter1"
-          scope="ON_ANY"
-          severity="WARNING">
-
+  <extension point="org.eclipse.ui.ide.markerSupport">
+    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.JavaProblems" name="Java Problems" scope="ON_ANY">
+      <selectedType markerId="org.eclipse.jdt.core.problem" />
+      <selectedType markerId="org.eclipse.jdt.core.buildpath_problem" />
+      <selectedType markerId="org.eclipse.jdt.launching.jreCompilerComplianceMarker" />
+      <selectedType markerId="org.eclipse.jdt.launching.jreContainerMarker" />
+    </problemFilter>
+    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.Sonar" name="Sonar Issues" scope="ON_ANY">
+      <selectedType markerId="org.sonarlint.eclipse.core.sonarlintOnTheFlyProblem" />
+      <selectedType markerId="org.sonarlint.eclipse.core.sonarlintReportProblem" />
+      <selectedType markerId="org.sonarlint.eclipse.core.sonarlintHotspot" />
+    </problemFilter>
+    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.SpotBugs" name="SpotBugs Issues" scope="ON_ANY">
+      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarker" />
+      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerOfConcern" />
+      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerScariest" />
+      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerScary" />
+      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerTroubling" />
+    </problemFilter>
+    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.CheckStyle" name="CheckStyle Issues" scope="ON_ANY">
+      <selectedType markerId="net.sf.eclipsecs.core.CheckstyleMarker" />
+    </problemFilter>
+    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.UCDetector" name="UCDetector" scope="ON_ANY">
+      <selectedType markerId="org.ucdetector.analyzeMarker" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerFewReference" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerFinal" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerOther" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerReference" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerTestOnly" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityDefault" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityPrivate" />
+      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityProtected" />
     </problemFilter>
   </extension>
 </plugin>
