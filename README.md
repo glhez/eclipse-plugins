@@ -1,4 +1,4 @@
-# What about this collection ? [![Build Status](https://travis-ci.org/glhez/eclipse-plugins.svg?branch=master)](https://travis-ci.org/glhez/eclipse-plugins)
+# What about this collection ? [![Java CI and Publish with Maven](https://github.com/glhez/eclipse-plugins/actions/workflows/build.yml/badge.svg)](https://github.com/glhez/eclipse-plugins/actions/workflows/build.yml)
 
 The update site will contains some plugins:
 
