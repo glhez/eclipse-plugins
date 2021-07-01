@@ -47,6 +47,7 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
   }
 
   static void configureActionSet(final IPageLayout layout) {
+    layout.addActionSet("org.eclipse.debug.ui.breakpointActionSet");
     layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
     layout.addActionSet(JavaUI.ID_ACTION_SET);
     layout.addActionSet(JavaUI.ID_ELEMENT_CREATION_ACTION_SET);

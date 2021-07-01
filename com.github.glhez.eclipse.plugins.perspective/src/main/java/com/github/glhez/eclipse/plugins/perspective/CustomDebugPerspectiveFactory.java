@@ -44,9 +44,5 @@ public class CustomDebugPerspectiveFactory implements IPerspectiveFactory {
     tl.addPlaceholder(JavaUI.ID_PACKAGES);
     tl.addPlaceholder(IPageLayout.ID_OUTLINE);
     tl.addPlaceholder(ID_TEST_RESULT_VIEW);
-
   }
-
-
-
 }
