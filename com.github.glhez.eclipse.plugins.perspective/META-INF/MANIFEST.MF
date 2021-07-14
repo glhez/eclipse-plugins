@@ -5,12 +5,10 @@ Bundle-SymbolicName: com.github.glhez.eclipse.plugins.perspective;singleton:=tru
 Automatic-Module-Name: com.github.glhez.eclipse.plugins.perspective
 Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11,
- JavaSE-15
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.jdt.ui,
- org.eclipse.ui,
  org.eclipse.search,
  org.eclipse.debug.ui,
- org.eclipse.ui,
- org.eclipse.ui.console
+ org.eclipse.ui.console,
+ org.eclipse.ui.workbench
 
