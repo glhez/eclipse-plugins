@@ -11,7 +11,7 @@
   </parent>
 
   <groupId>com.github.glhez.eclipse</groupId>
-  <artifactId>parent</artifactId>
+  <artifactId>eclipse-plugins-aggregator</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <name>Collection of Eclipse plugin</name>
