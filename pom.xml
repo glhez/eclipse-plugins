@@ -3,96 +3,20 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.glhez.parent</groupId>
-    <artifactId>java-11</artifactId>
-    <version>43</version>
-    <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
-    <relativePath />
+    <groupId>com.github.glhez.eclipse</groupId>
+    <artifactId>com.github.glhez.eclipse.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>com.github.glhez.eclipse.parent</relativePath>
   </parent>
 
-  <groupId>com.github.glhez.eclipse</groupId>
   <artifactId>eclipse-plugins-aggregator</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-
-  <name>Collection of Eclipse plugin</name>
   <packaging>pom</packaging>
 
-  <properties>
-    <dependency.tycho.version>2.3.0</dependency.tycho.version>
-    <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
-  </properties>
-
   <modules>
+    <module>com.github.glhez.eclipse.parent</module>
     <module>com.github.glhez.eclipse.plugins.staticimport</module>
     <module>com.github.glhez.eclipse.plugins.perspective</module>
     <module>com.github.glhez.eclipse.features.all</module>
     <module>com.github.glhez.eclipse.releng.updatesite</module>
   </modules>
-
-  <repositories>
-    <repository> <id>github-maven-parent</id>      <url>https://glhez.github.io/maven-repository/releases/</url> </repository>
-
-    <repository> <id>eclipse.org-2021-06</id>      <url>https://download.eclipse.org/releases/2021-06</url>     <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.20</id> <url>https://download.eclipse.org/eclipse/updates/4.20</url> <layout>p2</layout> </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>github-glhez-repo-plugin</id>
-      <url>https://glhez.github.io/maven-repository/releases/</url>
-      <snapshots> <enabled>false</enabled> </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <build>
-    <defaultGoal>verify</defaultGoal>
-    <pluginManagement>
-      <plugins>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>target-platform-configuration</artifactId>     <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-compiler-plugin</artifactId>             <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-maven-plugin</artifactId>                <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-director-plugin</artifactId>          <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-plugin</artifactId>                   <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-publisher-plugin</artifactId>         <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-repository-plugin</artifactId>        <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-surefire-plugin</artifactId>             <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-packaging-plugin</artifactId>            <version>${dependency.tycho.version}</version>        </plugin>
-
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>target-platform-validation-plugin</artifactId> <version>${dependency.tycho-extras.version}</version> </plugin>
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-p2-extras-plugin</artifactId>            <version>${dependency.tycho-extras.version}</version> </plugin>
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-eclipserun-plugin</artifactId>           <version>${dependency.tycho-extras.version}</version> </plugin>
-      </plugins>
-    </pluginManagement>
-
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-maven-plugin</artifactId>
-        <extensions>true</extensions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-compiler-plugin</artifactId>
-        <configuration>
-          <useProjectSettings>false</useProjectSettings>
-          <showDeprecation>true</showDeprecation>
-          <showWarnings>true</showWarnings>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-        <configuration>
-          <resolver>p2</resolver>
-          <targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
-          <environments>
-            <environment> <os>win32</os> <ws>win32</ws> <arch>x86_64</arch> </environment>
-            <environment> <os>linux</os> <ws>gtk</ws>   <arch>x86_64</arch> </environment>
-          </environments>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
