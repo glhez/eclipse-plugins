@@ -29,8 +29,8 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
 
   private static void configureFolder(final IPageLayout layout) {
     final IFolderLayout lt = layout.createFolder(ID_LEFT_TOP_FOLDER, LEFT, 0.25f, layout.getEditorArea());
+    lt.addView(IPageLayout.ID_PROJECT_EXPLORER);
     lt.addView(JavaUI.ID_PACKAGES);
-    lt.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER);
 
     final IFolderLayout lb = layout.createFolder(ID_LEFT_BOTTOM_FOLDER, BOTTOM, 0.75f, ID_LEFT_TOP_FOLDER);
     lb.addView(IPageLayout.ID_OUTLINE);
@@ -59,6 +59,7 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
     // a copy of those found in Java perspective
     // views - java
     layout.addShowViewShortcut(JavaUI.ID_PACKAGES);
+    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
     layout.addShowViewShortcut(JavaUI.ID_TYPE_HIERARCHY);
     layout.addShowViewShortcut(JavaUI.ID_SOURCE_VIEW);
     layout.addShowViewShortcut(JavaUI.ID_JAVADOC_VIEW);

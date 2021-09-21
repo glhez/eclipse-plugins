@@ -1,6 +1,6 @@
 target "glhez Eclipse Plugins TPD" with requirements, source, configurePhase
 
-location "https://download.eclipse.org/releases/2021-06" {
+location "https://download.eclipse.org/releases/2021-09" {
   org.eclipse.ui.ide.application lazy
   org.eclipse.core.externaltools lazy
   org.eclipse.core.runtime lazy
@@ -61,5 +61,5 @@ location "https://download.eclipse.org/releases/2021-06" {
   org.eclipse.unittest.ui lazy
 }
 
-location "https://download.eclipse.org/eclipse/updates/4.20" {
+location "https://download.eclipse.org/eclipse/updates/4.21" {
 }
