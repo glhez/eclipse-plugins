@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-11</artifactId>
-    <version>50-SNAPSHOT</version>
+    <version>50</version>
     <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
     <relativePath />
   </parent>
@@ -17,23 +17,21 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dependency.tycho.version>2.3.0</dependency.tycho.version>
+    <dependency.tycho.version>2.5.0</dependency.tycho.version>
     <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
   </properties>
 
   <repositories>
-    <repository> <id>github-maven-parent</id>      <url>https://glhez.github.io/maven-repository/releases/</url> </repository>
+    <repository> <id>github-glhez-repository-releases</id>  <url>https://glhez.github.io/maven-repository/releases</url>  <snapshots> <enabled>false</enabled> </snapshots> </repository>
+    <repository> <id>github-glhez-repository-snapshots</id> <url>https://glhez.github.io/maven-repository/snapshots</url> <snapshots> <enabled>true</enabled>  </snapshots> </repository>
 
     <repository> <id>eclipse.org-2021-09</id>      <url>https://download.eclipse.org/releases/2021-09</url>     <layout>p2</layout> </repository>
     <repository> <id>eclipse.org-updates-4.21</id> <url>https://download.eclipse.org/eclipse/updates/4.21</url> <layout>p2</layout> </repository>
   </repositories>
 
   <pluginRepositories>
-    <pluginRepository>
-      <id>github-glhez-repo-plugin</id>
-      <url>https://glhez.github.io/maven-repository/releases/</url>
-      <snapshots> <enabled>false</enabled> </snapshots>
-    </pluginRepository>
+    <pluginRepository> <id>github-glhez-repository-plugin-releases</id>  <url>https://glhez.github.io/maven-repository/releases</url>  <snapshots> <enabled>false</enabled> </snapshots> </pluginRepository>
+    <pluginRepository> <id>github-glhez-repository-plugin-snapshots</id> <url>https://glhez.github.io/maven-repository/snapshots</url> <snapshots> <enabled>true</enabled>  </snapshots> </pluginRepository>
   </pluginRepositories>
 
   <build>
@@ -78,6 +76,7 @@
         <artifactId>target-platform-configuration</artifactId>
         <configuration>
           <resolver>p2</resolver>
+          <executionEnvironment>JavaSE-11</executionEnvironment>
           <targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
           <environments>
             <environment> <os>win32</os> <ws>win32</ws> <arch>x86_64</arch> </environment>
