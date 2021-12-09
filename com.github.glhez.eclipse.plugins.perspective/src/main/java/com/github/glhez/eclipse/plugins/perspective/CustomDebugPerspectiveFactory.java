@@ -26,19 +26,20 @@ public class CustomDebugPerspectiveFactory implements IPerspectiveFactory {
 
   private void configureFolder(final IPageLayout layout) {
 
-    final IFolderLayout bl = layout.createFolder(ID_BOTTOM_LEFT_FOLDER, LEFT, 0.50f, ID_BOTTOM_LEFT_FOLDER);
-    bl.addView(IDebugUIConstants.ID_EXPRESSION_VIEW);
-    bl.addView(IDebugUIConstants.ID_BREAKPOINT_VIEW);
-    bl.addPlaceholder(IDebugUIConstants.ID_REGISTER_VIEW);
-    bl.addPlaceholder(IDebugUIConstants.ID_MEMORY_VIEW);
-    bl.addPlaceholder("*");
-
     final IFolderLayout br = layout.createFolder(ID_BOTTOM_RIGHT_FOLDER, BOTTOM, 0.70f, layout.getEditorArea());
     br.addView(IDebugUIConstants.ID_VARIABLE_VIEW);
     br.addView(IPageLayout.ID_PROBLEM_VIEW);
     br.addView(JavaUI.ID_JAVADOC_VIEW);
     br.addPlaceholder(NewSearchUI.SEARCH_VIEW_ID);
     br.addView(IConsoleConstants.ID_CONSOLE_VIEW);
+
+    final IFolderLayout bl = layout.createFolder(ID_BOTTOM_LEFT_FOLDER, LEFT, 0.50f, ID_BOTTOM_RIGHT_FOLDER);
+    bl.addView(IDebugUIConstants.ID_EXPRESSION_VIEW);
+    bl.addView(IDebugUIConstants.ID_BREAKPOINT_VIEW);
+    bl.addPlaceholder(IDebugUIConstants.ID_REGISTER_VIEW);
+    bl.addPlaceholder(IDebugUIConstants.ID_MEMORY_VIEW);
+    bl.addPlaceholder("*");
+
 
     final IFolderLayout tl = layout.createFolder(ID_TOP_LEFT_FOLDER, LEFT, 0.30f, layout.getEditorArea());
     tl.addView(IDebugUIConstants.ID_DEBUG_VIEW);
