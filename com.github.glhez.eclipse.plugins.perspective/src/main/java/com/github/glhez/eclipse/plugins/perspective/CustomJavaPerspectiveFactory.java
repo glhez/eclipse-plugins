@@ -42,6 +42,7 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
     bottom.addPlaceholder(NewSearchUI.SEARCH_VIEW_ID);
     bottom.addView(IConsoleConstants.ID_CONSOLE_VIEW);
     bottom.addView(ID_ERROR_LOG_VIEW);
+    bottom.addView("notepad4e.views.NotepadView");
     // ensure that other view get where they should
     bottom.addPlaceholder("*");
   }
