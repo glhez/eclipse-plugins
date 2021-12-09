@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-11</artifactId>
-    <version>50</version>
+    <version>51</version>
     <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
     <relativePath />
   </parent>
@@ -25,8 +25,8 @@
     <repository> <id>github-glhez-repository-releases</id>  <url>https://glhez.github.io/maven-repository/releases</url>  <snapshots> <enabled>false</enabled> </snapshots> </repository>
     <repository> <id>github-glhez-repository-snapshots</id> <url>https://glhez.github.io/maven-repository/snapshots</url> <snapshots> <enabled>true</enabled>  </snapshots> </repository>
 
-    <repository> <id>eclipse.org-2021-09</id>      <url>https://download.eclipse.org/releases/2021-09</url>     <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.21</id> <url>https://download.eclipse.org/eclipse/updates/4.21</url> <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-2021-09</id>      <url>https://download.eclipse.org/releases/2021-12</url>     <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-updates-4.21</id> <url>https://download.eclipse.org/eclipse/updates/4.22</url> <layout>p2</layout> </repository>
   </repositories>
 
   <pluginRepositories>
