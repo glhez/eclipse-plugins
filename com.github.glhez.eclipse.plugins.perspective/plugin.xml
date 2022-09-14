@@ -17,13 +17,6 @@
       <selectedType markerId="org.sonarlint.eclipse.core.sonarlintReportProblem" />
       <selectedType markerId="org.sonarlint.eclipse.core.sonarlintHotspot" />
     </problemFilter>
-    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.SpotBugs" name="SpotBugs Issues" scope="ON_ANY">
-      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarker" />
-      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerOfConcern" />
-      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerScariest" />
-      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerScary" />
-      <selectedType markerId="com.github.spotbugs.plugin.eclipse.findbugsMarkerTroubling" />
-    </problemFilter>
     <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.CheckStyle" name="CheckStyle Issues" scope="ON_ANY">
       <selectedType markerId="net.sf.eclipsecs.core.CheckstyleMarker" />
     </problemFilter>
