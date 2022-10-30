@@ -8,15 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3.0.2
-    - uses: actions/cache@v3.0.8
+    - uses: actions/checkout@v2.5.0
+    - uses: actions/cache@v3.0.11
       with:
         path: |
           ~/.m2/repository
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Set up JDK 17
-      uses: actions/setup-java@v3.4.1
+      uses: actions/setup-java@v3.6.0
       with:
         java-version: '17'
         distribution: 'adopt'
@@ -25,7 +25,7 @@ jobs:
     - name: Copy site index
       run: cp -v site/index.md com.github.glhez.eclipse.releng.updatesite/target/repository
     - name: Publish generated content to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4.4.0
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
         branch: gh-pages
         folder: com.github.glhez.eclipse.releng.updatesite/target/repository
