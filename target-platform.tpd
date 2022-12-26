@@ -1,65 +1,13 @@
-target "glhez Eclipse Plugins TPD" with requirements, source, configurePhase
+target "glhez Eclipse Plugins TPD" with requirements , source , configurePhase
 
-location "https://download.eclipse.org/releases/2021-09" {
-  org.eclipse.ui.ide.application lazy
-  org.eclipse.core.externaltools lazy
-  org.eclipse.core.runtime lazy
-  org.eclipse.core.variables lazy
-  org.eclipse.debug.core lazy
-  org.eclipse.debug.ui lazy
-  org.eclipse.jdt lazy
-  org.eclipse.jdt.annotation lazy
-  org.eclipse.jdt.apt.core lazy
-  org.eclipse.jdt.apt.pluggable.core lazy
-  org.eclipse.jdt.apt.ui lazy
-  org.eclipse.jdt.compiler.apt lazy
-  org.eclipse.jdt.compiler.tool lazy
-  org.eclipse.jdt.core lazy
-  org.eclipse.jdt.core.formatterapp lazy
-  org.eclipse.jdt.core.manipulation lazy
-  org.eclipse.jdt.debug lazy
-  org.eclipse.jdt.debug.ui lazy
-  org.eclipse.jdt.junit lazy
-  org.eclipse.jdt.junit.core lazy
-  org.eclipse.jdt.junit.runtime lazy
-  org.eclipse.jdt.junit4.runtime lazy
-  org.eclipse.jdt.junit5.runtime lazy
-  org.eclipse.jdt.launching lazy
+location "https://download.eclipse.org/releases/2022-12" {
   org.eclipse.jdt.ui lazy
-  org.eclipse.ltk.core.refactoring lazy
-  org.eclipse.ltk.ui.refactoring lazy
-  org.eclipse.m2e.binaryproject lazy
-  org.eclipse.m2e.binaryproject.ui lazy
-  org.eclipse.m2e.core lazy
-  org.eclipse.m2e.core.ui lazy
-  org.eclipse.m2e.discovery lazy
-  org.eclipse.m2e.editor lazy
-  org.eclipse.m2e.editor.lemminx lazy
-  org.eclipse.m2e.editor.xml lazy
-  org.eclipse.m2e.importer lazy
-  org.eclipse.m2e.jdt lazy
-  org.eclipse.m2e.jdt.ui lazy
-  org.eclipse.m2e.launching lazy
-  org.eclipse.m2e.lifecyclemapping.defaults lazy
-  org.eclipse.m2e.logback.appender lazy
-  org.eclipse.m2e.logback.configuration lazy
-  org.eclipse.m2e.model.edit lazy
-  org.eclipse.m2e.pde lazy
-  org.eclipse.m2e.pde.ui lazy
-  org.eclipse.m2e.profiles.core lazy
-  org.eclipse.m2e.profiles.ui lazy
-  org.eclipse.m2e.refactoring lazy
-  org.eclipse.m2e.scm lazy
-  org.eclipse.m2e.sourcelookup lazy
-  org.eclipse.m2e.sourcelookup.ui lazy
-  org.eclipse.m2e.tests.common lazy
   org.eclipse.search lazy
-  org.eclipse.ui lazy
+  org.eclipse.debug.ui lazy
   org.eclipse.ui.console lazy
-  org.eclipse.ui.externaltools lazy
   org.eclipse.ui.workbench lazy
-  org.eclipse.unittest.ui lazy
+  org.eclipse.ui lazy
 }
 
-location "https://download.eclipse.org/eclipse/updates/4.21" {
+location "https://download.eclipse.org/eclipse/updates/4.26" {
 }

@@ -1,71 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="glhez Eclipse Plugins TPD" sequenceNumber="1632224175">
+<target name="glhez Eclipse Plugins TPD" sequenceNumber="1672057569">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="true" type="InstallableUnit">
-      <unit id="org.eclipse.ui.ide.application" version="0.0.0"/>
-      <unit id="org.eclipse.core.externaltools" version="0.0.0"/>
-      <unit id="org.eclipse.core.runtime" version="0.0.0"/>
-      <unit id="org.eclipse.core.variables" version="0.0.0"/>
-      <unit id="org.eclipse.debug.core" version="0.0.0"/>
-      <unit id="org.eclipse.debug.ui" version="0.0.0"/>
-      <unit id="org.eclipse.jdt" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.annotation" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.apt.core" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.apt.pluggable.core" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.apt.ui" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.compiler.apt" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.compiler.tool" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.core" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.core.formatterapp" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.core.manipulation" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.debug" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.debug.ui" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.junit" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.junit.core" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.junit.runtime" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.junit4.runtime" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.junit5.runtime" version="0.0.0"/>
-      <unit id="org.eclipse.jdt.launching" version="0.0.0"/>
       <unit id="org.eclipse.jdt.ui" version="0.0.0"/>
-      <unit id="org.eclipse.ltk.core.refactoring" version="0.0.0"/>
-      <unit id="org.eclipse.ltk.ui.refactoring" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.binaryproject" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.binaryproject.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.core" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.core.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.discovery" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.editor" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.editor.lemminx" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.editor.xml" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.importer" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.jdt" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.jdt.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.launching" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.lifecyclemapping.defaults" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.logback.appender" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.logback.configuration" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.model.edit" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.pde" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.pde.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.profiles.core" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.profiles.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.refactoring" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.scm" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.sourcelookup" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.sourcelookup.ui" version="0.0.0"/>
-      <unit id="org.eclipse.m2e.tests.common" version="0.0.0"/>
       <unit id="org.eclipse.search" version="0.0.0"/>
-      <unit id="org.eclipse.ui" version="0.0.0"/>
+      <unit id="org.eclipse.debug.ui" version="0.0.0"/>
       <unit id="org.eclipse.ui.console" version="0.0.0"/>
-      <unit id="org.eclipse.ui.externaltools" version="0.0.0"/>
       <unit id="org.eclipse.ui.workbench" version="0.0.0"/>
-      <unit id="org.eclipse.unittest.ui" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/releases/2021-09"/>
+      <unit id="org.eclipse.ui" version="0.0.0"/>
+      <repository location="https://download.eclipse.org/releases/2022-12"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="true" type="InstallableUnit">
-      <repository location="https://download.eclipse.org/eclipse/updates/4.21"/>
+      <repository location="https://download.eclipse.org/eclipse/updates/4.26"/>
     </location>
   </locations>
 </target>

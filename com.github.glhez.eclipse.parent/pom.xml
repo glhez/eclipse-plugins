@@ -17,16 +17,16 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dependency.tycho.version>3.0.0</dependency.tycho.version>
-    <dependency.tycho-extras.version>${dependency.tycho.version}</dependency.tycho-extras.version>
+    <dep.tycho.version>3.0.0</dep.tycho.version>
+    <dep.tycho-extras.version>${dep.tycho.version}</dep.tycho-extras.version>
   </properties>
 
   <repositories>
     <repository> <id>github-glhez-repository-releases</id>  <url>https://glhez.github.io/maven-repository/releases</url>  <snapshots> <enabled>false</enabled> </snapshots> </repository>
     <repository> <id>github-glhez-repository-snapshots</id> <url>https://glhez.github.io/maven-repository/snapshots</url> <snapshots> <enabled>true</enabled>  </snapshots> </repository>
 
-    <repository> <id>eclipse.org-2022-09</id>      <url>https://download.eclipse.org/releases/2022-09</url>     <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.25</id> <url>https://download.eclipse.org/eclipse/updates/4.25</url> <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-2022-09</id>      <url>https://download.eclipse.org/releases/2022-12</url>     <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-updates-4.25</id> <url>https://download.eclipse.org/eclipse/updates/4.26</url> <layout>p2</layout> </repository>
   </repositories>
 
   <pluginRepositories>
@@ -38,19 +38,19 @@
     <defaultGoal>verify</defaultGoal>
     <pluginManagement>
       <plugins>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>target-platform-configuration</artifactId>     <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-compiler-plugin</artifactId>             <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-maven-plugin</artifactId>                <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-director-plugin</artifactId>          <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-plugin</artifactId>                   <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-publisher-plugin</artifactId>         <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-repository-plugin</artifactId>        <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-surefire-plugin</artifactId>             <version>${dependency.tycho.version}</version>        </plugin>
-        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-packaging-plugin</artifactId>            <version>${dependency.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>target-platform-configuration</artifactId>     <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-compiler-plugin</artifactId>             <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-maven-plugin</artifactId>                <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-director-plugin</artifactId>          <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-plugin</artifactId>                   <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-publisher-plugin</artifactId>         <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-p2-repository-plugin</artifactId>        <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-surefire-plugin</artifactId>             <version>${dep.tycho.version}</version>        </plugin>
+        <plugin> <groupId>org.eclipse.tycho</groupId>        <artifactId>tycho-packaging-plugin</artifactId>            <version>${dep.tycho.version}</version>        </plugin>
 
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>target-platform-validation-plugin</artifactId> <version>${dependency.tycho-extras.version}</version> </plugin>
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-p2-extras-plugin</artifactId>            <version>${dependency.tycho-extras.version}</version> </plugin>
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-eclipserun-plugin</artifactId>           <version>${dependency.tycho-extras.version}</version> </plugin>
+        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>target-platform-validation-plugin</artifactId> <version>${dep.tycho-extras.version}</version> </plugin>
+        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-p2-extras-plugin</artifactId>            <version>${dep.tycho-extras.version}</version> </plugin>
+        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-eclipserun-plugin</artifactId>           <version>${dep.tycho-extras.version}</version> </plugin>
       </plugins>
     </pluginManagement>
 
@@ -76,7 +76,7 @@
         <artifactId>target-platform-configuration</artifactId>
         <configuration>
           <resolver>p2</resolver>
-          <executionEnvironment>JavaSE-11</executionEnvironment>
+          <executionEnvironment>JavaSE-17</executionEnvironment>
           <targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
           <environments>
             <environment> <os>win32</os> <ws>win32</ws> <arch>x86_64</arch> </environment>
