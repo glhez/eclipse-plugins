@@ -17,7 +17,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>3.0.1</dep.tycho.version>
+    <dep.tycho.version>3.0.3</dep.tycho.version>
     <dep.tycho-extras.version>${dep.tycho.version}</dep.tycho-extras.version>
   </properties>
 
