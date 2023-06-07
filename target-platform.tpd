@@ -1,6 +1,6 @@
 target "glhez Eclipse Plugins TPD" with requirements , source , configurePhase
 
-location "https://download.eclipse.org/releases/2022-12" {
+location "https://download.eclipse.org/releases/2023-03" {
   org.eclipse.jdt.feature.group lazy
   org.eclipse.search lazy
   org.eclipse.debug.ui lazy
@@ -16,11 +16,11 @@ location "https://download.eclipse.org/releases/2022-12" {
 }
 
 location "https://download.eclipse.org/technology/m2e/releases/latest/" {
-  org.eclipse.m2e.core 2.0.5
-  org.eclipse.m2e.jdt 2.0.4
-  org.eclipse.m2e.maven.runtime 3.8.604
+  org.eclipse.m2e.core lazy
+  org.eclipse.m2e.jdt lazy
+  org.eclipse.m2e.maven.runtime lazy
   org.eclipse.m2e.feature.feature.group lazy
 }
 
-location "https://download.eclipse.org/eclipse/updates/4.26" {
+location "https://download.eclipse.org/eclipse/updates/4.27" {
 }
