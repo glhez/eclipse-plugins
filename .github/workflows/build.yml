@@ -25,7 +25,7 @@ jobs:
     - name: Copy site index
       run: cp -v site/index.md com.github.glhez.eclipse.releng.updatesite/target/repository
     - name: Publish generated content to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4.4.2
+      uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
         branch: gh-pages
         folder: com.github.glhez.eclipse.releng.updatesite/target/repository
