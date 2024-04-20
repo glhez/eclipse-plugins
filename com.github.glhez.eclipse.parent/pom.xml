@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-17</artifactId>
-    <version>77</version>
+    <version>78</version>
     <!-- NOTE directory parent is an aggregator, which is not this aggregator. Maven will complain. -->
     <relativePath />
   </parent>
@@ -17,8 +17,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>4.0.6</dep.tycho.version>
-    <dep.tycho-extras.version>4.0.6</dep.tycho-extras.version>
+    <dep.tycho.version>4.0.7</dep.tycho.version>
+    <dep.tycho-extras.version>4.0.7</dep.tycho-extras.version>
   </properties>
 
   <repositories>
@@ -50,7 +50,6 @@
 
         <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>target-platform-validation-plugin</artifactId> <version>${dep.tycho-extras.version}</version> </plugin>
         <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-p2-extras-plugin</artifactId>            <version>${dep.tycho-extras.version}</version> </plugin>
-        <plugin> <groupId>org.eclipse.tycho.extras</groupId> <artifactId>tycho-eclipserun-plugin</artifactId>           <version>${dep.tycho-extras.version}</version> </plugin>
       </plugins>
     </pluginManagement>
 
