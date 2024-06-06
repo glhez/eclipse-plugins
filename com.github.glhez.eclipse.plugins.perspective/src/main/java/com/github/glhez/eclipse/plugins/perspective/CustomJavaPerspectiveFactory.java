@@ -29,8 +29,8 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
 
   private static void configureFolder(final IPageLayout layout) {
     final IFolderLayout lt = layout.createFolder(ID_LEFT_TOP_FOLDER, LEFT, 0.25f, layout.getEditorArea());
-    lt.addView(IPageLayout.ID_PROJECT_EXPLORER);
     lt.addView(JavaUI.ID_PACKAGES);
+    lt.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER);
 
     final IFolderLayout lb = layout.createFolder(ID_LEFT_BOTTOM_FOLDER, BOTTOM, 0.75f, ID_LEFT_TOP_FOLDER);
     lb.addView(IPageLayout.ID_OUTLINE);
