@@ -2,6 +2,7 @@ package com.github.glhez.eclipse.plugins.perspective;
 
 import static com.github.glhez.eclipse.plugins.perspective.ViewIds.ID_ERROR_LOG_VIEW;
 import static com.github.glhez.eclipse.plugins.perspective.ViewIds.ID_TEST_RESULT_VIEW;
+import static com.github.glhez.eclipse.plugins.perspective.ViewIds.ID_WST_SERVER_VIEW;
 import static org.eclipse.ui.IPageLayout.BOTTOM;
 import static org.eclipse.ui.IPageLayout.LEFT;
 
@@ -35,6 +36,7 @@ public class CustomJavaPerspectiveFactory implements IPerspectiveFactory {
     final IFolderLayout lb = layout.createFolder(ID_LEFT_BOTTOM_FOLDER, BOTTOM, 0.75f, ID_LEFT_TOP_FOLDER);
     lb.addView(IPageLayout.ID_OUTLINE);
     lb.addPlaceholder(ID_TEST_RESULT_VIEW);
+    lb.addPlaceholder(ID_WST_SERVER_VIEW);
 
     final IFolderLayout bottom = layout.createFolder(ID_RIGHT_BOTTOM_FOLDER, BOTTOM, 0.75f, layout.getEditorArea());
     bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
