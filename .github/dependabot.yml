@@ -14,6 +14,10 @@ updates:
         patterns:
         - "org.apache.maven.plugins:*"
         - "org.codehaus.mojo:*"
+      tycho:
+        patterns:
+        - "org.eclipse.tycho.extras:*"
+        - "org.eclipse.tycho:*"
   - package-ecosystem: 'github-actions'
     directory: '/.github'
     schedule:
