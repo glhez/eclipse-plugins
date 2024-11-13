@@ -40,7 +40,6 @@ public class CustomDebugPerspectiveFactory implements IPerspectiveFactory {
     bl.addPlaceholder(IDebugUIConstants.ID_MEMORY_VIEW);
     bl.addPlaceholder("*");
 
-
     final IFolderLayout tl = layout.createFolder(ID_TOP_LEFT_FOLDER, LEFT, 0.30f, layout.getEditorArea());
     tl.addView(IDebugUIConstants.ID_DEBUG_VIEW);
     tl.addPlaceholder(JavaUI.ID_PACKAGES);
