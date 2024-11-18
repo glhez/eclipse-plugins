@@ -18,9 +18,11 @@ jobs:
       run: |
         ./mvnw -B package
     - name: Copy site index
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
         cp -v site/index.md com.github.glhez.eclipse.releng.updatesite/target/repository
     - name: Deploy to GitHub Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: JamesIves/github-pages-deploy-action@v4.5.0
       with:
         branch: gh-pages
