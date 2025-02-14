@@ -17,16 +17,16 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>4.0.10</dep.tycho.version>
-    <dep.tycho-extras.version>4.0.10</dep.tycho-extras.version>
+    <dep.tycho.version>4.0.11</dep.tycho.version>
+    <dep.tycho-extras.version>4.0.11</dep.tycho-extras.version>
   </properties>
 
   <repositories>
     <repository> <id>github-glhez-repository-releases</id>  <url>https://glhez.github.io/maven-repository/releases</url>  <snapshots> <enabled>false</enabled> </snapshots> </repository>
     <repository> <id>github-glhez-repository-snapshots</id> <url>https://glhez.github.io/maven-repository/snapshots</url> <snapshots> <enabled>true</enabled>  </snapshots> </repository>
 
-    <repository> <id>eclipse.org-2024-09</id>      <url>https://download.eclipse.org/releases/2024-12</url>     <layout>p2</layout> </repository>
-    <repository> <id>eclipse.org-updates-4.33</id> <url>https://download.eclipse.org/eclipse/updates/4.34</url> <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-2024-12</id>      <url>https://download.eclipse.org/releases/2024-12</url>     <layout>p2</layout> </repository>
+    <repository> <id>eclipse.org-updates-4.34</id> <url>https://download.eclipse.org/eclipse/updates/4.34</url> <layout>p2</layout> </repository>
   </repositories>
 
   <pluginRepositories>

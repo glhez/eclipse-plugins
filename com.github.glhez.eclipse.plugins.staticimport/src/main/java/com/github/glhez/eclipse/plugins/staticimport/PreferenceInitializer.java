@@ -117,6 +117,7 @@ public class PreferenceInitializer implements IStartup {
     copy.addTypeImport("org.assertj.core.api.Assertions");
     copy.addTypeImport("org.assertj.core.api.AssertionsForClassTypes");
     copy.addTypeImport("org.assertj.core.api.AssertionsForInterfaceTypes");
+    copy.addTypeImport("org.assertj.core.api.InstanceOfAssertFactories");
 
     copy.addTypeImport("org.junit.jupiter.api.Assertions");
     copy.addTypeImport("org.junit.jupiter.api.Assumptions");
@@ -129,6 +130,7 @@ public class PreferenceInitializer implements IStartup {
 
     // apache
     copy.addTypeImport("org.apache.commons.lang3.StringUtils");
+    copy.addTypeImport("org.apache.commons.lang3.ObjectUtils");
     copy.addTypeImport("org.apache.commons.text.StringEscapeUtils");
 
     return copy.toUnmodifiableSortedSet();
