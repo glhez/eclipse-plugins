@@ -3,8 +3,8 @@
 The update site will contains some plugins:
 
 - **Static   Import   plugin**:   contribute   to  the  _Favorites_  and  add  some  static  import,  such  as
-`java.util.Collections`.  This  plugin  will add a default set of [imports][1]. **Note:** this plugin will not
-scan for static methods in your project, it will only add a fixed set of static import.
+  `java.util.Collections`.  This  plugin  will add a default set of [imports][1]. **Note:** this plugin will not
+  scan for static methods in your project, it will only add a fixed set of static import.
 
 ## Installation
 
@@ -28,16 +28,17 @@ If you forget to clean your Eclipse, then the `PreferenceInitializer` will get c
 If you need to proxy P2 repositories as described [here][2]:
 
 ```xml
-  <mirrors>
-    <mirror>
-      <id>nexus-p2-download.eclipse.org</id>
-      <mirrorOf>https://download.eclipse.org</mirrorOf>
-      <url>[URL]</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-  </mirrors>
+<mirrors>
+  <mirror>
+    <id>nexus-p2-download.eclipse.org</id>
+    <mirrorOf>https://download.eclipse.org</mirrorOf>
+    <url>[URL]</url>
+    <layout>p2</layout>
+    <mirrorOfLayouts>p2</mirrorOfLayouts>
+  </mirror>
+</mirrors>
 ```
 
 [1]: com.github.glhez.eclipse.plugins.staticimport/src/main/java/com/github/glhez/eclipse/plugins/staticimport/PreferenceInitializer.java
 [2]: https://wiki.eclipse.org/Tycho/Target_Platform/Authentication_and_Mirrors
+
