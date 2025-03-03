@@ -16,7 +16,7 @@ jobs:
         cache: 'maven'
     - name: build
       run: |
-        ./mvnw -B package
+        ./mvnw -B package -DperformRelease=true
     - name: Copy site index
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
