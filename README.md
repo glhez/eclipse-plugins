@@ -39,6 +39,16 @@ If you need to proxy P2 repositories as described [here][2]:
 </mirrors>
 ```
 
+## GPG Private Key
+
+See <https://docs.github.com/fr/authentication/managing-commit-signature-verification/generating-a-new-gpg-key>
+
+```bash
+gpg --full-generate-key
+gpg --list-secret-keys --keyid-format=long
+gpg --armor --export-secret-keys <key>
+```
+
 [1]: com.github.glhez.eclipse.plugins.staticimport/src/main/java/com/github/glhez/eclipse/plugins/staticimport/PreferenceInitializer.java
 [2]: https://wiki.eclipse.org/Tycho/Target_Platform/Authentication_and_Mirrors
 
