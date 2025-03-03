@@ -18,7 +18,7 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
     - name: build
       run: |
-        ./mvnw -B package -DperformRelease=true
+        ./mvnw -B verify -DperformRelease=true
     - name: Copy site index
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
