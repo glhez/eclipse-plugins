@@ -5,11 +5,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IStartup;
@@ -24,20 +25,28 @@ public class PreferenceInitializer implements IStartup {
 
   @Override
   public void earlyStartup() {
-    final IPreferenceStore store = PreferenceConstants.getPreferenceStore();
-    final String key = PreferenceConstants.CODEASSIST_FAVORITE_STATIC_MEMBERS;
+    IPreferenceStore store = PreferenceConstants.getPreferenceStore();
+    var key = PreferenceConstants.CODEASSIST_FAVORITE_STATIC_MEMBERS;
 
-    final List<String> list = Pattern.compile(Pattern.quote(PREFERENCE_DELIMITER))
-                                     .splitAsStream(store.getString(key))
-                                     .map(String::trim)
-                                     .filter(s -> !s.isEmpty())
-                                     .collect(toList());
+    var list = Pattern.compile(Pattern.quote(PREFERENCE_DELIMITER))
+                      .splitAsStream(store.getString(key))
+                      .map(String::trim)
+                      .filter(s -> !s.isEmpty())
+                      .collect(toList());
+
+    var logger = org.eclipse.core.runtime.Platform.getLog(PreferenceInitializer.class);
+
+    logger.log(Status.info("starting Static Import plugin"));
 
     final LinkedHashSet<String> imports = new LinkedHashSet<>();
     imports.addAll(list);
+
     if (imports.addAll(getDefaultImports())) {
       final String value = imports.stream().collect(joining(PREFERENCE_DELIMITER));
       store.setValue(key, value);
+      logger.log(Status.info("updating " + key + " of plugin " + JavaUI.ID_PLUGIN));
+    } else {
+      logger.log(Status.info("preference seems to be good, nothing to update"));
     }
   }
 
