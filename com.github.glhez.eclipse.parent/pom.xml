@@ -17,8 +17,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>4.0.12</dep.tycho.version>
-    <dep.tycho-extras.version>4.0.12</dep.tycho-extras.version>
+    <dep.tycho.version>4.0.13</dep.tycho.version>
+    <dep.tycho-extras.version>4.0.13</dep.tycho-extras.version>
   </properties>
 
   <repositories>
