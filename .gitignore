@@ -45,3 +45,4 @@ target
 [#]*#
 # WinMerge2011
 *.bak
+.tycho-consumer-pom.xml
