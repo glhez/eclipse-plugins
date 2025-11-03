@@ -17,9 +17,12 @@ jobs:
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
     - name: build
       run: |
+        base64 --decode > "${KEYSTORE_PATH}" <<< "${{ secrets.KEYSTORE_DATA }}"
         ./mvnw -B verify -DperformRelease=true
       env:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_KEY }}
+        KEYSTORE_PATH: ./code-signing.keystore
     - name: Copy site index
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
