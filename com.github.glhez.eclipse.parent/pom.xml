@@ -182,7 +182,7 @@
       <id>release-sign-jarsigner</id>
       <activation>
         <property>
-          <name>env.CI_KEYSTORE_PATH</name>
+          <name>env.KEYSTORE_PATH</name>
         </property>
       </activation>
       <build>
