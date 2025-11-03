@@ -18,7 +18,7 @@ jobs:
     - name: build
       run: |
         base64 --decode > "${KEYSTORE_PATH}" <<< "${{ secrets.KEYSTORE_DATA }}"
-        ./mvnw -B verify -DperformRelease=true
+        ./mvnw -B verify -DperformRelease=true -X -Djarsigner.verbose=true
       env:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_KEY }}
