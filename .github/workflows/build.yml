@@ -22,7 +22,7 @@ jobs:
       env:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_KEY }}
-        KEYSTORE_PATH: ./code-signing.keystore
+        KEYSTORE_PATH: "${GITHUB_WORKSPACE}/code-signing.keystore"
     - name: Copy site index
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
