@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="tomcat" nsURI="urn:eclipse:oomph:tomcat" nsPrefix="tomcat">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="schemaLocation" value="https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="TomcatServerTask" eSuperTypes="http://www.eclipse.org/oomph/setup/1.0#//SetupTask">
+    <eAnnotations source="http://www.eclipse.org/oomph/setup/Enablement">
+      <details key="variableName" value="p2.tomcat"/>
+      <details key="repository" value="https://glhez.github.io/eclipse-plugins"/>
+      <details key="installableUnits" value="com.github.glhez.eclipse.features.oomph"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/oomph/setup/ValidTriggers">
+      <details key="triggers" value="STARTUP MANUAL"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serverName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serverVersion" lowerBound="1"
+        eType="#//TomcatBaseline"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="runtimeName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostname" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="localhost"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jreVersion" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="httpPort" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        defaultValueLiteral="8080"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="httpsPort" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        defaultValueLiteral="8443"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="launchProgramArgs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="launchVmArgs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cleanPreviousRuntimes"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoPublish" eType="#//AutoPublish"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TomcatBaseline">
+    <eLiterals name="TOMCAT_90" value="1" literal="Tomcat 9.0.x"/>
+    <eLiterals name="TOMCAT_100" value="2" literal="Tomcat 10.0.x"/>
+    <eLiterals name="TOMCAT_101" value="3" literal="Tomcat 10.1.x"/>
+    <eLiterals name="TOMCAT_110" value="4" literal="Tomcat 11.0.x"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AutoPublish">
+    <eLiterals name="DISABLE" value="1" literal="Disable auto publish"/>
+    <eLiterals name="RESOURCE" value="2" literal="Publish on resource change"/>
+    <eLiterals name="BUILD" value="3" literal="Publish on build change"/>
+  </eClassifiers>
+</ecore:EPackage>

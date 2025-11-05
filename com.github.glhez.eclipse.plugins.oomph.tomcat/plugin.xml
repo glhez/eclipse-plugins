@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="4.7"?>
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Tomcat -->
+      <package
+            uri="urn:eclipse:oomph:tomcat"
+            class="com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage"
+            genModel="model/Tomcat.genmodel"/>
+   </extension>
+
+</plugin>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.github.glhez.eclipse.plugins.oomph.tomcat/src/generated/java"
+    creationIcons="false" editDirectory="/com.github.glhez.eclipse.plugins.oomph.tomcat.edit/src/generated/java"
+    editorDirectory="" modelPluginID="com.github.glhez.eclipse.plugins.oomph.tomcat"
+    redirection="" modelName="Tomcat" editorPluginClass="" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="21.0" copyrightFields="false" editorPluginID="com.github.glhez.eclipse.plugins.oomph.tomcat.editor"
+    testsPluginID="com.github.glhez.eclipse.plugins.oomph.tomcat.editor" optimizedHasChildren="true"
+    language="" usedGenPackages="../../org.eclipse.oomph.base/model/Base.genmodel#//base ../../org.eclipse.oomph.setup/model/Setup.genmodel#//setup"
+    importOrganizing="true" cleanup="true">
+  <foreignModel>Tomcat.ecore</foreignModel>
+  <genPackages prefix="TomcatServer" basePackage="com.github.glhez.eclipse.plugins.oomph.setup"
+      disposableProviderFactory="true" multipleEditorPages="false" generateModelWizard="false"
+      extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions="setup"
+      ecorePackage="Tomcat.ecore#/" publicationLocation="/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tomcat.ecore#//TomcatBaseline">
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//TomcatBaseline/TOMCAT_90"/>
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//TomcatBaseline/TOMCAT_100"/>
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//TomcatBaseline/TOMCAT_101"/>
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//TomcatBaseline/TOMCAT_110"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tomcat.ecore#//AutoPublish">
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//AutoPublish/DISABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//AutoPublish/RESOURCE"/>
+      <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//AutoPublish/BUILD"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="Tomcat.ecore#//TomcatServerTask">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/serverName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/serverVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/location"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/runtimeName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/hostname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/jreVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/httpPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/httpsPort"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/launchProgramArgs"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/launchVmArgs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/cleanPreviousRuntimes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/startTimeout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/stopTimeout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/autoPublish"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

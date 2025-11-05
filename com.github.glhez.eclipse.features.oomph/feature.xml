@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="com.github.glhez.eclipse.features.oomph" label="glhez&apos;s Eclipse Oomph Task" version="1.0.0.qualifier">
+  <description>glhez&apos;s collection of Ooomph Task</description>
+  <copyright>©</copyright>
+  <license>©</license>
+  <plugin id="com.github.glhez.eclipse.plugins.oomph.tomcat"  download-size="0" install-size="0" version="0.0.0" unpack="false" />
+</feature>
