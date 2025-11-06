@@ -1,6 +1,7 @@
 package com.github.glhez.eclipse.plugins.oomph.setup.tomcat.internal;
 
 import static java.util.Collections.unmodifiableMap;
+import static java.util.stream.Collectors.joining;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -17,6 +18,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jdt.internal.launching.StandardVMType;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.IVMInstallType;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.server.core.IJavaRuntimeWorkingCopy;
 import org.eclipse.jst.server.tomcat.core.internal.TomcatServer;
@@ -69,15 +72,26 @@ public class TomcatServerCreator {
         && isAttributeValid(context, "jreVersion", task.getJreVersion());
   }
 
+  private boolean isAttributeValid(final SetupTaskContext context, final String name, final String value) {
+    return isAttributeValid0(context, name, value != null && !value.isBlank());
+  }
+
   private boolean isAttributeValid(final SetupTaskContext context, final String name, final Object value) {
-    if (value == null) {
-      context.log("missing attribute %s".formatted(name), Severity.WARNING);
-      return false;
+    return isAttributeValid0(context, name, value != null);
+  }
+
+  private boolean isAttributeValid0(final SetupTaskContext context, final String name, final boolean valid) {
+    if (!valid) {
+      context.log("Attribute %s is null or blank".formatted(name), Severity.WARNING);
     }
-    return true;
+    return valid;
   }
 
   public void perform(final SetupTaskContext context) throws TomcatSetupTaskException, CoreException {
+    if (isValid(context)) {
+      return;
+    }
+
     var info = INFOS.get(task.getServerVersion());
     if (info == null) {
       throw new TomcatSetupTaskException("Unsupported tomcat version: " + task.getServerVersion());
@@ -153,9 +167,11 @@ public class TomcatServerCreator {
 
       info("creating runtime %s - %s", task.getRuntimeName(), runtimeType);
 
-      var javaRuntime = Optional.ofNullable(JavaRuntime.getVMInstallType(StandardVMType.ID_STANDARD_VM_TYPE))
-                                .map(vmi -> vmi.findVMInstallByName(task.getJreVersion()))
-                                .orElseThrow(() -> new TomcatSetupTaskException("Could not find a JVM with name: " + task.getJreVersion()));
+      var vmInstallType = Optional.ofNullable(JavaRuntime.getVMInstallType(StandardVMType.ID_STANDARD_VM_TYPE));
+
+      var javaRuntime = vmInstallType.map(vmi -> vmi.findVMInstallByName(task.getJreVersion()))
+                                     .orElseThrow(() -> new TomcatSetupTaskException(
+                                         "Could not find a JVM with name: " + task.getJreVersion() + listVMByName(vmInstallType)));
 
       var rwc = runtimeType.createRuntime(task.getRuntimeName(), monitor);
       rwc.setLocation(Path.fromOSString(task.getLocation()));
@@ -169,6 +185,13 @@ public class TomcatServerCreator {
         throw new TomcatSetupTaskException("Could not a create a server runtime " + task.getRuntimeName() + ": " + status.getMessage());
       }
       return rwc.save(false, monitor);
+    }
+
+    private String listVMByName(final Optional<IVMInstallType> vmInstallType) {
+      return vmInstallType.map(vmi -> Arrays.stream(vmi.getVMInstalls())
+                                            .map(IVMInstall::getName)
+                                            .collect(joining(", ", "(Available JRE: ", ")")))
+                          .orElse("");
     }
 
     private ServerWorkingCopyAndServer createServerIfNeeded(final IRuntime runtime) throws TomcatSetupTaskException, CoreException {
