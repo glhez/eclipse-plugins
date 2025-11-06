@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <feature url="features/com.github.glhez.eclipse.features.all_1.0.0.qualifier.jar" id="com.github.glhez.eclipse.features.all" version="1.0.0.qualifier">
-    <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
+  <feature url="features/com.github.glhez.eclipse.features.all_1.0.0.qualifier.jar"
+    id="com.github.glhez.eclipse.features.all" version="1.0.0.qualifier">
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat1" />
   </feature>
+
   <bundle id="com.github.glhez.eclipse.plugins.staticimport" version="1.0.0.qualifier">
-    <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat1" />
   </bundle>
   <bundle id="com.github.glhez.eclipse.plugins.perspective" version="1.0.0.qualifier">
-    <category name="com.github.glhez.eclipse.releng.updatesite.cat1"/>
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat1" />
   </bundle>
-  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin"/>
+  <bundle id="com.github.glhez.eclipse.plugins.perspective" version="1.0.0.qualifier">
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat1" />
+  </bundle>
+  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat1" label="glhez&apos;s Eclipse Plugin" />
+
+  <feature url="features/com.github.glhez.eclipse.features.oomph_1.0.0.qualifier.jar" id="com.github.glhez.eclipse.features.oomph" version="1.0.0.qualifier">
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat2" />
+  </feature>
+  <bundle id="com.github.glhez.eclipse.plugins.oomph.tomcat" version="1.0.0.qualifier">
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat2" />
+  </bundle>
+  <bundle id="com.github.glhez.eclipse.plugins.oomph.tomcat.edit" version="1.0.0.qualifier">
+    <category name="com.github.glhez.eclipse.releng.updatesite.cat2" />
+  </bundle>
+
+  <category-def name="com.github.glhez.eclipse.releng.updatesite.cat2" label="glhez&apos;s Eclipse Oomph Setup Task" />
 </site>
