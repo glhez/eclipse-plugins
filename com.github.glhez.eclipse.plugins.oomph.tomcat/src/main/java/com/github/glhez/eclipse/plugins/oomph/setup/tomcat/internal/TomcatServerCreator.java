@@ -18,7 +18,6 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jdt.internal.launching.StandardVMType;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
-import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstallType;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.server.core.IJavaRuntimeWorkingCopy;
@@ -189,8 +188,8 @@ public class TomcatServerCreator {
 
     private String listVMByName(final Optional<IVMInstallType> vmInstallType) {
       return vmInstallType.map(vmi -> Arrays.stream(vmi.getVMInstalls())
-                                            .map(IVMInstall::getName)
-                                            .collect(joining(", ", "(Available JRE: ", ")")))
+                                            .map(vm -> "{ id: " + vm.getId() + ", name: " + vm.getName() + "}")
+                                            .collect(joining("\n - ", "\nAvailable JREs:\n", "\n")))
                           .orElse("");
     }
 
