@@ -57,9 +57,24 @@ public class TomcatServerCreator {
     this.task = task;
   }
 
-  public boolean isNeeded() {
-    return ServerCore.findRuntime(task.getRuntimeName()) == null
-        || ServerCore.findServer(task.getServerName()) == null;
+  public boolean isNeeded(final SetupTaskContext context) {
+    return isValid(context) && (ServerCore.findRuntime(task.getRuntimeName()) == null || ServerCore.findServer(task.getServerName()) == null);
+  }
+
+  public boolean isValid(final SetupTaskContext context) {
+    return isAttributeValid(context, "runtimeName", task.getRuntimeName())
+        && isAttributeValid(context, "serverName", task.getServerName())
+        && isAttributeValid(context, "serverVersion", task.getServerVersion())
+        && isAttributeValid(context, "location", task.getLocation())
+        && isAttributeValid(context, "jreVersion", task.getJreVersion());
+  }
+
+  private boolean isAttributeValid(final SetupTaskContext context, final String name, final Object value) {
+    if (value == null) {
+      context.log("missing attribute %s".formatted(name), Severity.WARNING);
+      return false;
+    }
+    return true;
   }
 
   public void perform(final SetupTaskContext context) throws TomcatSetupTaskException, CoreException {

@@ -987,7 +987,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
 
   @Override
   public boolean isNeeded(final SetupTaskContext context) throws Exception {
-    return creator.isNeeded();
+    return creator.isNeeded(context);
   }
 
   @Override
