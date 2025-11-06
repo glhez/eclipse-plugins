@@ -192,7 +192,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected static final Integer HTTP_PORT_EDEFAULT = Integer.valueOf(8080);
+  protected static final String HTTP_PORT_EDEFAULT = "8080";
 
   /**
    * The cached value of the '{@link #getHttpPort() <em>Http Port</em>}' attribute.
@@ -203,7 +203,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected Integer httpPort = HTTP_PORT_EDEFAULT;
+  protected String httpPort = HTTP_PORT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getHttpsPort() <em>Https Port</em>}' attribute.
@@ -214,7 +214,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected static final Integer HTTPS_PORT_EDEFAULT = Integer.valueOf(8443);
+  protected static final String HTTPS_PORT_EDEFAULT = "8443";
 
   /**
    * The cached value of the '{@link #getHttpsPort() <em>Https Port</em>}' attribute.
@@ -225,7 +225,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected Integer httpsPort = HTTPS_PORT_EDEFAULT;
+  protected String httpsPort = HTTPS_PORT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getLaunchProgramArgs() <em>Launch Program Args</em>}' attribute.
@@ -302,7 +302,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected static final Integer START_TIMEOUT_EDEFAULT = null;
+  protected static final String START_TIMEOUT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getStartTimeout() <em>Start Timeout</em>}' attribute.
@@ -313,7 +313,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected Integer startTimeout = START_TIMEOUT_EDEFAULT;
+  protected String startTimeout = START_TIMEOUT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getStopTimeout() <em>Stop Timeout</em>}' attribute.
@@ -324,7 +324,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected static final Integer STOP_TIMEOUT_EDEFAULT = null;
+  protected static final String STOP_TIMEOUT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getStopTimeout() <em>Stop Timeout</em>}' attribute.
@@ -335,7 +335,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    * @ordered
    */
-  protected Integer stopTimeout = STOP_TIMEOUT_EDEFAULT;
+  protected String stopTimeout = STOP_TIMEOUT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getAutoPublish() <em>Auto Publish</em>}' attribute.
@@ -545,7 +545,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public Integer getHttpPort() {
+  public String getHttpPort() {
     return httpPort;
   }
 
@@ -556,7 +556,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public void setHttpPort(final Integer newHttpPort) {
+  public void setHttpPort(final String newHttpPort) {
     var oldHttpPort = httpPort;
     httpPort = newHttpPort;
     if (eNotificationRequired()) {
@@ -571,7 +571,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public Integer getHttpsPort() {
+  public String getHttpsPort() {
     return httpsPort;
   }
 
@@ -582,7 +582,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public void setHttpsPort(final Integer newHttpsPort) {
+  public void setHttpsPort(final String newHttpsPort) {
     var oldHttpsPort = httpsPort;
     httpsPort = newHttpsPort;
     if (eNotificationRequired()) {
@@ -677,7 +677,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public Integer getStartTimeout() {
+  public String getStartTimeout() {
     return startTimeout;
   }
 
@@ -688,7 +688,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public void setStartTimeout(final Integer newStartTimeout) {
+  public void setStartTimeout(final String newStartTimeout) {
     var oldStartTimeout = startTimeout;
     startTimeout = newStartTimeout;
     if (eNotificationRequired()) {
@@ -703,7 +703,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public Integer getStopTimeout() {
+  public String getStopTimeout() {
     return stopTimeout;
   }
 
@@ -714,7 +714,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
-  public void setStopTimeout(final Integer newStopTimeout) {
+  public void setStopTimeout(final String newStopTimeout) {
     var oldStopTimeout = stopTimeout;
     stopTimeout = newStopTimeout;
     if (eNotificationRequired()) {
@@ -817,10 +817,10 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
         setJreVersion((String) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__HTTP_PORT:
-        setHttpPort((Integer) newValue);
+        setHttpPort((String) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__HTTPS_PORT:
-        setHttpsPort((Integer) newValue);
+        setHttpsPort((String) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__LAUNCH_PROGRAM_ARGS:
         setLaunchProgramArgs((String) newValue);
@@ -832,10 +832,10 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
         setCleanPreviousRuntimes((Boolean) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__START_TIMEOUT:
-        setStartTimeout((Integer) newValue);
+        setStartTimeout((String) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__STOP_TIMEOUT:
-        setStopTimeout((Integer) newValue);
+        setStopTimeout((String) newValue);
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         setAutoPublish((AutoPublish) newValue);

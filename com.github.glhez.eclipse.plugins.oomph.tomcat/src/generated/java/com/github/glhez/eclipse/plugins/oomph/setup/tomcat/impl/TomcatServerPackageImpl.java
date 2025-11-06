@@ -415,20 +415,20 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_JreVersion(), ecorePackage.getEString(), "jreVersion", null, 1, 1, TomcatServerTask.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTomcatServerTask_HttpPort(), ecorePackage.getEIntegerObject(), "httpPort", "8080", 1, 1, TomcatServerTask.class, !IS_TRANSIENT,
+    initEAttribute(getTomcatServerTask_HttpPort(), ecorePackage.getEString(), "httpPort", "8080", 1, 1, TomcatServerTask.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTomcatServerTask_HttpsPort(), ecorePackage.getEIntegerObject(), "httpsPort", "8443", 1, 1, TomcatServerTask.class,
-                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTomcatServerTask_HttpsPort(), ecorePackage.getEString(), "httpsPort", "8443", 1, 1, TomcatServerTask.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_LaunchProgramArgs(), ecorePackage.getEString(), "launchProgramArgs", "", 0, 1, TomcatServerTask.class,
                    !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_LaunchVmArgs(), ecorePackage.getEString(), "launchVmArgs", "", 0, 1, TomcatServerTask.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_CleanPreviousRuntimes(), ecorePackage.getEBoolean(), "cleanPreviousRuntimes", "false", 0, 1,
                    TomcatServerTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTomcatServerTask_StartTimeout(), ecorePackage.getEIntegerObject(), "startTimeout", null, 0, 1, TomcatServerTask.class,
-                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTomcatServerTask_StopTimeout(), ecorePackage.getEIntegerObject(), "stopTimeout", null, 0, 1, TomcatServerTask.class,
-                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTomcatServerTask_StartTimeout(), ecorePackage.getEString(), "startTimeout", null, 0, 1, TomcatServerTask.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTomcatServerTask_StopTimeout(), ecorePackage.getEString(), "stopTimeout", null, 0, 1, TomcatServerTask.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_AutoPublish(), this.getAutoPublish(), "autoPublish", null, 0, 1, TomcatServerTask.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -454,6 +454,8 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
     createEnablementAnnotations();
     // http://www.eclipse.org/oomph/setup/ValidTriggers
     createValidTriggersAnnotations();
+    // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+    createExtendedMetaDataAnnotations();
   }
 
   /**
@@ -487,7 +489,7 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   new String[] {
                       "variableName", "p2.tomcat",
                       "repository", "https://glhez.github.io/eclipse-plugins",
-                      "installableUnits", "com.github.glhez.eclipse.features.oomph"
+                      "installableUnits", "com.github.glhez.eclipse.features.oomph.feature.group"
                   });
   }
 
@@ -504,6 +506,23 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   source,
                   new String[] {
                       "triggers", "STARTUP MANUAL"
+                  });
+  }
+
+  /**
+   * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected void createExtendedMetaDataAnnotations() {
+    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+    addAnnotation(getTomcatServerTask_JreVersion(),
+                  source,
+                  new String[] {
+                      "kind", "element",
+                      "name", "defaultExecutionEnvironment"
                   });
   }
 

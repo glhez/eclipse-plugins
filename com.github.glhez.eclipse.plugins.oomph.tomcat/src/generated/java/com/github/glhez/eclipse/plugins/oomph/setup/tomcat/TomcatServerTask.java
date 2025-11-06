@@ -33,7 +33,8 @@ import org.eclipse.oomph.setup.SetupTask;
  *
  * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask()
  * @model annotation="http://www.eclipse.org/oomph/setup/Enablement variableName='p2.tomcat'
- *        repository='https://glhez.github.io/eclipse-plugins' installableUnits='com.github.glhez.eclipse.features.oomph'"
+ *        repository='https://glhez.github.io/eclipse-plugins'
+ *        installableUnits='com.github.glhez.eclipse.features.oomph.feature.group'"
  *        annotation="http://www.eclipse.org/oomph/setup/ValidTriggers triggers='STARTUP MANUAL'"
  * @generated
  */
@@ -181,6 +182,7 @@ public interface TomcatServerTask extends SetupTask {
    * @see #setJreVersion(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_JreVersion()
    * @model required="true"
+   *        extendedMetaData="kind='element' name='defaultExecutionEnvironment'"
    * @generated
    */
   String getJreVersion();
@@ -205,12 +207,12 @@ public interface TomcatServerTask extends SetupTask {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Http Port</em>' attribute.
-   * @see #setHttpPort(Integer)
+   * @see #setHttpPort(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_HttpPort()
    * @model default="8080" required="true"
    * @generated
    */
-  Integer getHttpPort();
+  String getHttpPort();
 
   /**
    * Sets the value of the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getHttpPort <em>Http
@@ -223,7 +225,7 @@ public interface TomcatServerTask extends SetupTask {
    * @see #getHttpPort()
    * @generated
    */
-  void setHttpPort(Integer value);
+  void setHttpPort(String value);
 
   /**
    * Returns the value of the '<em><b>Https Port</b></em>' attribute.
@@ -232,12 +234,12 @@ public interface TomcatServerTask extends SetupTask {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Https Port</em>' attribute.
-   * @see #setHttpsPort(Integer)
+   * @see #setHttpsPort(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_HttpsPort()
    * @model default="8443" required="true"
    * @generated
    */
-  Integer getHttpsPort();
+  String getHttpsPort();
 
   /**
    * Sets the value of the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getHttpsPort <em>Https
@@ -250,7 +252,7 @@ public interface TomcatServerTask extends SetupTask {
    * @see #getHttpsPort()
    * @generated
    */
-  void setHttpsPort(Integer value);
+  void setHttpsPort(String value);
 
   /**
    * Returns the value of the '<em><b>Launch Program Args</b></em>' attribute.
@@ -339,12 +341,12 @@ public interface TomcatServerTask extends SetupTask {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Start Timeout</em>' attribute.
-   * @see #setStartTimeout(Integer)
+   * @see #setStartTimeout(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_StartTimeout()
    * @model
    * @generated
    */
-  Integer getStartTimeout();
+  String getStartTimeout();
 
   /**
    * Sets the value of the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getStartTimeout <em>Start
@@ -357,7 +359,7 @@ public interface TomcatServerTask extends SetupTask {
    * @see #getStartTimeout()
    * @generated
    */
-  void setStartTimeout(Integer value);
+  void setStartTimeout(String value);
 
   /**
    * Returns the value of the '<em><b>Stop Timeout</b></em>' attribute.
@@ -365,12 +367,12 @@ public interface TomcatServerTask extends SetupTask {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Stop Timeout</em>' attribute.
-   * @see #setStopTimeout(Integer)
+   * @see #setStopTimeout(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_StopTimeout()
    * @model
    * @generated
    */
-  Integer getStopTimeout();
+  String getStopTimeout();
 
   /**
    * Sets the value of the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getStopTimeout <em>Stop
@@ -383,7 +385,7 @@ public interface TomcatServerTask extends SetupTask {
    * @see #getStopTimeout()
    * @generated
    */
-  void setStopTimeout(Integer value);
+  void setStopTimeout(String value);
 
   /**
    * Returns the value of the '<em><b>Auto Publish</b></em>' attribute.

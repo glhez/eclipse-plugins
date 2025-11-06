@@ -385,7 +385,7 @@ public class TomcatServerTaskItemProvider extends SetupTaskItemProvider {
    */
   @Override
   public Object getImage(final Object object) {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/TomcatServerTask.ico"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/TomcatServerTask16x16.ico"));
   }
 
   /**

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -164,11 +165,11 @@ public class TomcatServerCreator {
       server.setHost(task.getHostname());
       server.setName(task.getServerName());
 
-      Optional.ofNullable(server.loadAdapter(ServerWorkingCopy.class, monitor)).map(ServerWorkingCopy.class::cast).ifPresent(s -> {
+      if (server.loadAdapter(ServerWorkingCopy.class, monitor) instanceof ServerWorkingCopy s) {
         s.setAutoPublishSetting(toAutoPublishSettings(task.getAutoPublish()));
-        Optional.ofNullable(task.getStartTimeout()).ifPresent(s::setStartTimeout);
-        Optional.ofNullable(task.getStopTimeout()).ifPresent(s::setStopTimeout);
-      });
+        toInt("startTimeout", task.getStartTimeout()).ifPresent(s::setStartTimeout);
+        toInt("stopTimeout", task.getStopTimeout()).ifPresent(s::setStopTimeout);
+      }
 
       return new ServerWorkingCopyAndServer(server, server.save(false, monitor));
     }
@@ -198,7 +199,7 @@ public class TomcatServerCreator {
       }
     }
 
-    private void customizeTomcatPorts(final IServerWorkingCopy workingCopy, final IServer server) throws CoreException {
+    private void customizeTomcatPorts(final IServerWorkingCopy workingCopy, final IServer server) throws CoreException, TomcatSetupTaskException {
       var tomcat = (TomcatServer) server.loadAdapter(TomcatServer.class, monitor);
       if (tomcat == null) {
         warn("Could not adapt %s into a %s, won't configure Tomcat HTTP(s) port(s)", server, TomcatServer.class);
@@ -216,14 +217,14 @@ public class TomcatServerCreator {
       tomcat.saveConfiguration(monitor);
     }
 
-    private Optional<Integer> getNewValueForPort(final ServerPort port) {
+    private OptionalInt getNewValueForPort(final ServerPort port) throws TomcatSetupTaskException {
       if ("http".equalsIgnoreCase(port.getProtocol())) {
-        return Optional.ofNullable(task.getHttpPort());
+        return toInt("httpPort", task.getHttpPort());
       }
       if ("ssl".equalsIgnoreCase(port.getProtocol())) {
-        return Optional.ofNullable(task.getHttpsPort());
+        return toInt("httpsPort", task.getHttpsPort());
       }
-      return Optional.empty();
+      return OptionalInt.empty();
     }
 
     private static int toAutoPublishSettings(final AutoPublish autoPublish) {
@@ -233,6 +234,18 @@ public class TomcatServerCreator {
         case RESOURCE -> org.eclipse.wst.server.core.internal.Server.AUTO_PUBLISH_RESOURCE;
         case DISABLE -> org.eclipse.wst.server.core.internal.Server.AUTO_PUBLISH_DISABLE;
       };
+    }
+
+    private OptionalInt toInt(final String what, final String value) throws TomcatSetupTaskException {
+      if (value == null || value.isBlank()) {
+        return OptionalInt.empty();
+      }
+      var v = value.strip();
+      try {
+        return OptionalInt.of(Integer.parseInt(v));
+      } catch (NumberFormatException e) {
+        throw new TomcatSetupTaskException("Could not convert " + what + " (" + v + ") to int: " + e.getMessage());
+      }
     }
   }
 
