@@ -88,7 +88,7 @@ public class TomcatServerCreator {
   }
 
   public void perform(final SetupTaskContext context) throws TomcatSetupTaskException, CoreException {
-    if (isValid(context)) {
+    if (!isValid(context)) {
       return;
     }
 
