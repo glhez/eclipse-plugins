@@ -182,7 +182,6 @@ public interface TomcatServerTask extends SetupTask {
    * @see #setJreVersion(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_JreVersion()
    * @model required="true"
-   *        extendedMetaData="kind='element' name='defaultExecutionEnvironment'"
    * @generated
    */
   String getJreVersion();

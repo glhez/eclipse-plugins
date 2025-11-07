@@ -456,8 +456,6 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
     createEnablementAnnotations();
     // http://www.eclipse.org/oomph/setup/ValidTriggers
     createValidTriggersAnnotations();
-    // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-    createExtendedMetaDataAnnotations();
   }
 
   /**
@@ -525,23 +523,6 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   source,
                   new String[] {
                       "triggers", "STARTUP MANUAL"
-                  });
-  }
-
-  /**
-   * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  protected void createExtendedMetaDataAnnotations() {
-    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-    addAnnotation(getTomcatServerTask_JreVersion(),
-                  source,
-                  new String[] {
-                      "kind", "element",
-                      "name", "defaultExecutionEnvironment"
                   });
   }
 
