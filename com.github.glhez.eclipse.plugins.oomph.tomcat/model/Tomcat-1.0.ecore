@@ -4,6 +4,9 @@
   <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
     <details key="schemaLocation" value="https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore"/>
   </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/oomph/base/LabelProvider">
+    <details key="imageBaseURI" value="https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat.edit/icons/full/obj16"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="TomcatServerTask" eSuperTypes="http://www.eclipse.org/oomph/setup/1.0#//SetupTask">
     <eAnnotations source="http://www.eclipse.org/oomph/setup/Enablement">
       <details key="variableName" value="p2.tomcat"/>

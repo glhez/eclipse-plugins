@@ -450,6 +450,8 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
     // Create annotations
     // http://www.eclipse.org/emf/2002/Ecore
     createEcoreAnnotations();
+    // http://www.eclipse.org/oomph/base/LabelProvider
+    createLabelProviderAnnotations();
     // http://www.eclipse.org/oomph/setup/Enablement
     createEnablementAnnotations();
     // http://www.eclipse.org/oomph/setup/ValidTriggers
@@ -472,6 +474,23 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   new String[] {
                       "schemaLocation",
                       "https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore"
+                  });
+  }
+
+  /**
+   * Initializes the annotations for <b>http://www.eclipse.org/oomph/base/LabelProvider</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected void createLabelProviderAnnotations() {
+    var source = "http://www.eclipse.org/oomph/base/LabelProvider";
+    addAnnotation(this,
+                  source,
+                  new String[] {
+                      "imageBaseURI",
+                      "https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat.edit/icons/full/obj16"
                   });
   }
 

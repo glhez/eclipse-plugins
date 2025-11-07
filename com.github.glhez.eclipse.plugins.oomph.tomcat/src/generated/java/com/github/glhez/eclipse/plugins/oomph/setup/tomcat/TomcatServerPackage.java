@@ -24,6 +24,8 @@ import org.eclipse.oomph.setup.SetupPackage;
  * @model kind="package"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore
  *        schemaLocation='https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore'"
+ *        annotation="http://www.eclipse.org/oomph/base/LabelProvider
+ *        imageBaseURI='https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat.edit/icons/full/obj16'"
  * @generated
  */
 public interface TomcatServerPackage extends EPackage {

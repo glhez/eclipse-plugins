@@ -1,7 +1,6 @@
 package com.github.glhez.eclipse.plugins.staticimport;
 
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -12,7 +11,6 @@ import java.util.regex.Pattern;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jdt.ui.PreferenceConstants;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IStartup;
 
 /**
@@ -25,24 +23,22 @@ public class PreferenceInitializer implements IStartup {
 
   @Override
   public void earlyStartup() {
-    IPreferenceStore store = PreferenceConstants.getPreferenceStore();
+    var store = PreferenceConstants.getPreferenceStore();
     var key = PreferenceConstants.CODEASSIST_FAVORITE_STATIC_MEMBERS;
 
     var list = Pattern.compile(Pattern.quote(PREFERENCE_DELIMITER))
                       .splitAsStream(store.getString(key))
                       .map(String::trim)
                       .filter(s -> !s.isEmpty())
-                      .collect(toList());
+                      .toList();
 
     var logger = org.eclipse.core.runtime.Platform.getLog(PreferenceInitializer.class);
 
     logger.log(Status.info("starting Static Import plugin"));
 
-    final LinkedHashSet<String> imports = new LinkedHashSet<>();
-    imports.addAll(list);
-
+    final var imports = new LinkedHashSet<>(list);
     if (imports.addAll(getDefaultImports())) {
-      final String value = imports.stream().collect(joining(PREFERENCE_DELIMITER));
+      final var value = imports.stream().collect(joining(PREFERENCE_DELIMITER));
       store.setValue(key, value);
       logger.log(Status.info("updating " + key + " of plugin " + JavaUI.ID_PLUGIN));
     } else {
@@ -51,7 +47,7 @@ public class PreferenceInitializer implements IStartup {
   }
 
   private static SortedSet<String> getDefaultImports() {
-    final ImportList copy = new ImportList();
+    final var copy = new ImportList();
 
     // jdk [basic types]
     copy.addTypeImport("java.lang.String");
@@ -107,6 +103,8 @@ public class PreferenceInitializer implements IStartup {
     // jdk [nio2]
     copy.addTypeImport("java.nio.file.Files");
     copy.addTypeImport("java.nio.channels.FileChannel");
+    copy.addTypeImport("java.nio.file.Paths");
+    copy.addTypeImport("java.nio.file.Path");
 
     // jdk [awt/swing]
     copy.addTypeImport("java.awt.Toolkit");

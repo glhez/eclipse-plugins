@@ -6,7 +6,6 @@ import static java.util.stream.Collectors.joining;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -18,7 +17,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jdt.internal.launching.StandardVMType;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
-import org.eclipse.jdt.launching.IVMInstallType;
+import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.server.core.IJavaRuntimeWorkingCopy;
 import org.eclipse.jst.server.tomcat.core.internal.TomcatServer;
@@ -127,6 +126,10 @@ public class TomcatServerCreator {
       context.log(fmt.formatted(args), Severity.WARNING);
     }
 
+    private void error(final String fmt, final Object... args) {
+      context.log(fmt.formatted(args), Severity.ERROR);
+    }
+
     public void install() throws TomcatSetupTaskException, CoreException {
       removeMatching(IRuntime.class.getSimpleName(), filtering(ServerCore.getRuntimes(), task.getRuntimeName(), IRuntime::getName), IRuntime::delete);
       removeMatching(IServer.class.getSimpleName(), filtering(ServerCore.getServers(), task.getServerName(), IServer::getName), IServer::delete);
@@ -166,11 +169,7 @@ public class TomcatServerCreator {
 
       info("creating runtime %s - %s", task.getRuntimeName(), runtimeType);
 
-      var vmInstallType = Optional.ofNullable(JavaRuntime.getVMInstallType(StandardVMType.ID_STANDARD_VM_TYPE));
-
-      var javaRuntime = vmInstallType.map(vmi -> vmi.findVMInstallByName(task.getJreVersion()))
-                                     .orElseThrow(() -> new TomcatSetupTaskException(
-                                         "Could not find a JVM with name: " + task.getJreVersion() + listVMByName(vmInstallType)));
+      var javaRuntime = findJre();
 
       var rwc = runtimeType.createRuntime(task.getRuntimeName(), monitor);
       rwc.setLocation(Path.fromOSString(task.getLocation()));
@@ -186,11 +185,40 @@ public class TomcatServerCreator {
       return rwc.save(false, monitor);
     }
 
-    private String listVMByName(final Optional<IVMInstallType> vmInstallType) {
-      return vmInstallType.map(vmi -> Arrays.stream(vmi.getVMInstalls())
-                                            .map(vm -> "{ id: " + vm.getId() + ", name: " + vm.getName() + "}")
-                                            .collect(joining("\n - ", "\nAvailable JREs:\n", "\n")))
-                          .orElse("");
+    private IVMInstall findJre() throws TomcatSetupTaskException {
+      var vmInstallType = JavaRuntime.getVMInstallType(StandardVMType.ID_STANDARD_VM_TYPE);
+      if (vmInstallType == null) {
+        throw new TomcatSetupTaskException("Could not find a VMInstallType for " + StandardVMType.ID_STANDARD_VM_TYPE);
+      }
+
+      var javaRuntime = vmInstallType.findVMInstallByName(task.getJreVersion());
+      if (javaRuntime != null) {
+        info("Using JRE named %s installed in %s", javaRuntime.getName(), javaRuntime.getInstallLocation());
+        return javaRuntime;
+      }
+
+      // try to use this instead
+      var executionEnvironmentsManager = JavaRuntime.getExecutionEnvironmentsManager();
+      var executionEnvironment = executionEnvironmentsManager.getEnvironment(task.getJreVersion());
+      if (executionEnvironment != null) {
+        javaRuntime = executionEnvironment.getDefaultVM();
+        if (javaRuntime != null) {
+          info("Using Execution Environment %s default JRE named %s installed in %s", executionEnvironment.getId(), javaRuntime.getName(),
+               javaRuntime.getInstallLocation());
+          return javaRuntime;
+        }
+      }
+
+      error("Could not find a JVM with name: %s in %s", task.getJreVersion(), vmInstallType.getName());
+      error("Available JREs: %s", Arrays.stream(vmInstallType.getVMInstalls())
+                                        .map(IVMInstall::getName)
+                                        .collect(joining(", ", "[", "]")));
+      error("Available Execution Environments: %s",
+            Arrays.stream(executionEnvironmentsManager.getExecutionEnvironments())
+                  .filter(ee -> ee.getDefaultVM() != null)
+                  .map(ee -> ee.getId() + " (default vm: " + ee.getDefaultVM().getName() + ")")
+                  .collect(joining(", ", "[", "]")));
+      throw new TomcatSetupTaskException("Could not find a JVM with name: " + task.getJreVersion());
     }
 
     private ServerWorkingCopyAndServer createServerIfNeeded(final IRuntime runtime) throws TomcatSetupTaskException, CoreException {
