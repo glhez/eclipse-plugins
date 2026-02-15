@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-21</artifactId>
-    <version>107</version>
+    <version>111</version>
     <relativePath/>
   </parent>
 
@@ -16,8 +16,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>5.0.0</dep.tycho.version>
-    <dep.tycho-extras.version>5.0.0</dep.tycho-extras.version>
+    <dep.tycho.version>5.0.2</dep.tycho.version>
+    <dep.tycho-extras.version>5.0.2</dep.tycho-extras.version>
   </properties>
 
   <repositories>
