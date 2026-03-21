@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-21</artifactId>
-    <version>116</version>
+    <version>117</version>
     <relativePath/>
   </parent>
 
@@ -38,12 +38,12 @@
 
     <repository>
       <id>eclipse.org-2025-09</id>
-      <url>https://download.eclipse.org/releases/2025-09</url>
+      <url>https://download.eclipse.org/releases/2026-03</url>
       <layout>p2</layout>
     </repository>
     <repository>
-      <id>eclipse.org-updates-4.37</id>
-      <url>https://download.eclipse.org/eclipse/updates/4.37</url>
+      <id>eclipse.org-updates-4.39</id>
+      <url>https://download.eclipse.org/eclipse/updates/4.39</url>
       <layout>p2</layout>
     </repository>
   </repositories>
