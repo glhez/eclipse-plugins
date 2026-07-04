@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.github.glhez.parent</groupId>
     <artifactId>java-21</artifactId>
-    <version>120</version>
+    <version>122</version>
     <relativePath/>
   </parent>
 
@@ -16,8 +16,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dep.tycho.version>5.0.2</dep.tycho.version>
-    <dep.tycho-extras.version>5.0.2</dep.tycho-extras.version>
+    <dep.tycho.version>5.0.3</dep.tycho.version>
+    <dep.tycho-extras.version>5.0.3</dep.tycho-extras.version>
   </properties>
 
   <repositories>
@@ -37,13 +37,13 @@
     </repository>
 
     <repository>
-      <id>eclipse.org-2025-09</id>
-      <url>https://download.eclipse.org/releases/2026-03</url>
+      <id>eclipse.org-2026-06</id>
+      <url>https://download.eclipse.org/releases/2026-06</url>
       <layout>p2</layout>
     </repository>
     <repository>
-      <id>eclipse.org-updates-4.39</id>
-      <url>https://download.eclipse.org/eclipse/updates/4.39</url>
+      <id>eclipse.org-updates-4.40</id>
+      <url>https://download.eclipse.org/eclipse/updates/4.40</url>
       <layout>p2</layout>
     </repository>
   </repositories>
