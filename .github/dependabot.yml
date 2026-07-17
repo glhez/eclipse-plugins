@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     groups:
       maven-plugins:
         patterns:
@@ -19,7 +19,7 @@ updates:
         - "org.eclipse.tycho.extras:*"
         - "org.eclipse.tycho:*"
   - package-ecosystem: 'github-actions'
-    directory: '/.github'
+    directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
 
