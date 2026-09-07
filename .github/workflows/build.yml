@@ -15,23 +15,6 @@ jobs:
         java-version: 21
         cache: 'maven'
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-    - name: verify key is imported
-      run: |
-        gpg --list-secret-keys --keyid-format LONG
-        gpgconf --list-dirs
-    # - name: Installer GPG et pinentry
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y gnupg pinentry-curses
-
-    #     mkdir -p ~/.gnupg
-    #     chmod 700 ~/.gnupg
-
-    #     echo 'pinentry-program /usr/bin/pinentry-curses' >> ~/.gnupg/gpg-agent.conf
-    #     echo 'allow-loopback-pinentry' >> ~/.gnupg/gpg-agent.conf
-
-    #     gpgconf --kill gpg-agent
-    #     gpgconf --launch gpg-agent
     - name: build
       run: |
         base64 --decode > "${KEYSTORE_PATH}" <<< "${{ secrets.KEYSTORE_DATA }}"
@@ -39,7 +22,7 @@ jobs:
       env:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_KEY }}
-        KEYSTORE_PATH: ${{ github.workspace }}/code-signing.keystore"
+        KEYSTORE_PATH: ${{ github.workspace }}/code-signing.keystore
     - name: Copy site index
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
