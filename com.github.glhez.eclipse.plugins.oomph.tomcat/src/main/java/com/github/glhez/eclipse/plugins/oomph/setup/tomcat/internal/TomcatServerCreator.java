@@ -71,7 +71,7 @@ public class TomcatServerCreator {
   }
 
   public boolean isNeeded(final SetupTaskContext context) {
-    return isValid(context) && (ServerCore.findRuntime(task.getRuntimeName()) == null || ServerCore.findServer(task.getServerName()) == null);
+    return isValid(context);
   }
 
   public boolean isValid(final SetupTaskContext context) {
@@ -161,56 +161,39 @@ public class TomcatServerCreator {
     }
 
     public void install() throws TomcatSetupTaskException, CoreException {
-      removeMatching(IRuntime.class.getSimpleName(), filtering(ServerCore.getRuntimes(), task.getRuntimeName(), IRuntime::getName), IRuntime::delete);
-      removeMatching(IServer.class.getSimpleName(), filtering(ServerCore.getServers(), task.getServerName(), IServer::getName), IServer::delete);
-
-      var runtime = createRuntimeIfNeeded();
-      var holder = createServerIfNeeded(runtime);
+      var runtime = findOrCreateRuntime();
+      var holder = findOrCreateServer(runtime);
       customizeLaunchConfigurations(holder.server(), task.getLaunchProgramArgs(), task.getLaunchVmArgs());
       customizeTomcatPorts(holder.workingCopy(), holder.server());
 
       monitor.worked(1);
     }
 
-    private <T> Stream<T> filtering(final T[] items, final String name, final Function<T, String> eclipseExtractor) {
-      var initial = Arrays.stream(items);
-      if (task.isCleanPreviousRuntimes()) {
-        return initial;
-      }
-      return initial.filter(item -> name.equals(eclipseExtractor.apply(item)));
-    }
-
-    private <T> void removeMatching(final String typeName, final Stream<T> stream, final DeleteHandler<T> handler)
-        throws CoreException {
-      var list = stream.toList();
-      if (list.isEmpty()) {
-        info("No %s to remove", typeName);
-      } else {
-        info("Removing %d %s", list.size(), typeName);
-        for (var item : list) {
-          info("  Removing %s (%s)", item, typeName);
-          handler.delete(item);
-        }
-      }
-    }
-
-    private IRuntime createRuntimeIfNeeded() throws TomcatSetupTaskException, CoreException {
+    private IRuntime findOrCreateRuntime() throws TomcatSetupTaskException, CoreException {
+      var runtimeName = task.getRuntimeName();
       var runtimeType = info.runtimeType();
 
-      info("creating runtime %s - %s", task.getRuntimeName(), runtimeType);
+      for (var existingRuntime : ServerCore.getRuntimes()) {
+        if (Objects.equals(runtimeName, existingRuntime.getName())) {
+          info("found runtime %s - %s", runtimeName, runtimeType);
+          return existingRuntime;
+        }
+      }
+
+      info("creating runtime %s - %s", runtimeName, runtimeType);
 
       var javaRuntime = findJre();
 
-      var rwc = runtimeType.createRuntime(task.getRuntimeName(), monitor);
+      var rwc = runtimeType.createRuntime(runtimeName, monitor);
       rwc.setLocation(IPath.fromOSString(task.getLocation()));
-      rwc.setName(task.getRuntimeName());
+      rwc.setName(runtimeName);
 
       var jwc = (IJavaRuntimeWorkingCopy) rwc.loadAdapter(IJavaRuntimeWorkingCopy.class, null);
       jwc.setVMInstall(javaRuntime);
 
       var status = rwc.validate(monitor);
       if (!status.isOK()) {
-        throw new TomcatSetupTaskException("Could not a create a server runtime " + task.getRuntimeName() + ": " + status.getMessage());
+        throw new TomcatSetupTaskException("Could not a create a server runtime " + runtimeName + ": " + status.getMessage());
       }
       return rwc.save(false, monitor);
     }
@@ -251,14 +234,24 @@ public class TomcatServerCreator {
       throw new TomcatSetupTaskException("Could not find a JVM with name: " + task.getJreVersion());
     }
 
-    private ServerWorkingCopyAndServer createServerIfNeeded(final IRuntime runtime) throws TomcatSetupTaskException, CoreException {
+    private ServerWorkingCopyAndServer findOrCreateServer(final IRuntime runtime) throws TomcatSetupTaskException, CoreException {
+      var serverName = task.getServerName();
       var serverType = info.serverType();
 
-      info("creating server %s - %s", task.getServerName(), serverType);
-
-      var server = serverType.createServer(task.getServerName(), null, runtime, monitor);
+      IServerWorkingCopy server = null;
+      for (var existingServer : ServerCore.getServers()) {
+        if (Objects.equals(serverName, existingServer.getName())) {
+          info("modifying server %s - %s", serverName, serverType);
+          server = existingServer.createWorkingCopy();
+          break;
+        }
+      }
+      if (server == null) {
+        info("creating server %s - %s", serverName, serverType);
+        server = serverType.createServer(serverName, null, runtime, monitor);
+      }
       server.setHost(task.getHostname());
-      server.setName(task.getServerName());
+      server.setName(serverName);
 
       if (server.loadAdapter(ServerWorkingCopy.class, monitor) instanceof ServerWorkingCopy s) {
         s.setAutoPublishSetting(toAutoPublishSettings(task.getAutoPublish()));
