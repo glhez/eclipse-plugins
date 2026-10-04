@@ -25,7 +25,7 @@
       <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//AutoPublish/RESOURCE"/>
       <genEnumLiterals ecoreEnumLiteral="Tomcat.ecore#//AutoPublish/BUILD"/>
     </genEnums>
-    <genClasses image="false" ecoreClass="Tomcat.ecore#//TomcatServerTask">
+    <genClasses ecoreClass="Tomcat.ecore#//TomcatServerTask">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/serverName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/serverVersion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/location"/>
@@ -40,6 +40,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/startTimeout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/stopTimeout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//TomcatServerTask/autoPublish"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tomcat.ecore#//TomcatServerTask/additionalClassPathEntry"/>
+    </genClasses>
+    <genClasses ecoreClass="Tomcat.ecore#//ClasspathEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//ClasspathEntry/entry"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//ClasspathEntry/pattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tomcat.ecore#//ClasspathEntry/sort"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

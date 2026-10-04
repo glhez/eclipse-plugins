@@ -29,6 +29,7 @@ public enum TomcatBaseline implements Enumerator {
    * @ordered
    */
   TOMCAT_90(1, "TOMCAT_90", "Tomcat 9.0.x"),
+
   /**
    * The '<em><b>TOMCAT 100</b></em>' literal object.
    * <!-- begin-user-doc -->
@@ -39,6 +40,7 @@ public enum TomcatBaseline implements Enumerator {
    * @ordered
    */
   TOMCAT_100(2, "TOMCAT_100", "Tomcat 10.0.x"),
+
   /**
    * The '<em><b>TOMCAT 101</b></em>' literal object.
    * <!-- begin-user-doc -->
@@ -49,6 +51,7 @@ public enum TomcatBaseline implements Enumerator {
    * @ordered
    */
   TOMCAT_101(3, "TOMCAT_101", "Tomcat 10.1.x"),
+
   /**
    * The '<em><b>TOMCAT 110</b></em>' literal object.
    * <!-- begin-user-doc -->

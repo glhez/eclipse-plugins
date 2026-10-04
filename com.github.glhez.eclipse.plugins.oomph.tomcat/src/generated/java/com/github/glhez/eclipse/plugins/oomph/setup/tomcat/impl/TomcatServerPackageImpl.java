@@ -6,11 +6,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.oomph.base.BasePackage;
 import org.eclipse.oomph.setup.SetupPackage;
 
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.AutoPublish;
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerFactory;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
@@ -31,6 +33,14 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
    * @generated
    */
   private EClass tomcatServerTaskEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass classpathEntryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -294,6 +304,61 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
    * @generated
    */
   @Override
+  public EReference getTomcatServerTask_AdditionalClassPathEntry() {
+    return (EReference) tomcatServerTaskEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getClasspathEntry() {
+    return classpathEntryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getClasspathEntry_Entry() {
+    return (EAttribute) classpathEntryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getClasspathEntry_Pattern() {
+    return (EAttribute) classpathEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getClasspathEntry_Sort() {
+    return (EAttribute) classpathEntryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EEnum getTomcatBaseline() {
     return tomcatBaselineEEnum;
   }
@@ -358,6 +423,12 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
     createEAttribute(tomcatServerTaskEClass, TOMCAT_SERVER_TASK__START_TIMEOUT);
     createEAttribute(tomcatServerTaskEClass, TOMCAT_SERVER_TASK__STOP_TIMEOUT);
     createEAttribute(tomcatServerTaskEClass, TOMCAT_SERVER_TASK__AUTO_PUBLISH);
+    createEReference(tomcatServerTaskEClass, TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY);
+
+    classpathEntryEClass = createEClass(CLASSPATH_ENTRY);
+    createEAttribute(classpathEntryEClass, CLASSPATH_ENTRY__ENTRY);
+    createEAttribute(classpathEntryEClass, CLASSPATH_ENTRY__PATTERN);
+    createEAttribute(classpathEntryEClass, CLASSPATH_ENTRY__SORT);
 
     // Create enums
     tomcatBaselineEEnum = createEEnum(TOMCAT_BASELINE);
@@ -431,6 +502,17 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTomcatServerTask_AutoPublish(), this.getAutoPublish(), "autoPublish", null, 0, 1, TomcatServerTask.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTomcatServerTask_AdditionalClassPathEntry(), this.getClasspathEntry(), null, "additionalClassPathEntry", null, 0, -1,
+                   TomcatServerTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                   !IS_DERIVED, IS_ORDERED);
+
+    initEClass(classpathEntryEClass, ClasspathEntry.class, "ClasspathEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getClasspathEntry_Entry(), ecorePackage.getEString(), "entry", null, 1, 1, ClasspathEntry.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClasspathEntry_Pattern(), ecorePackage.getEString(), "pattern", "*.jar", 0, 1, ClasspathEntry.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClasspathEntry_Sort(), ecorePackage.getEBoolean(), "sort", "false", 0, 1, ClasspathEntry.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(tomcatBaselineEEnum, TomcatBaseline.class, "TomcatBaseline");
@@ -489,6 +571,11 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   new String[] {
                       "imageBaseURI",
                       "https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat.edit/icons/full/obj16"
+                  });
+    addAnnotation(getTomcatServerTask_AdditionalClassPathEntry(),
+                  source,
+                  new String[] {
+                      "description", "Configure additional classpath entries to add to Tomcat \"Classpath\" (in Launch configuration). "
                   });
   }
 

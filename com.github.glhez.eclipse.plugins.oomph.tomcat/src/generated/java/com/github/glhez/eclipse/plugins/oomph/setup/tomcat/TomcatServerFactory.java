@@ -34,6 +34,16 @@ public interface TomcatServerFactory extends EFactory {
   TomcatServerTask createTomcatServerTask();
 
   /**
+   * Returns a new object of class '<em>Classpath Entry</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Classpath Entry</em>'.
+   * @generated
+   */
+  ClasspathEntry createClasspathEntry();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

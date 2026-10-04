@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
@@ -15,6 +16,7 @@ import org.eclipse.oomph.base.BaseFactory;
 import org.eclipse.oomph.base.BasePackage;
 import org.eclipse.oomph.setup.provider.SetupTaskItemProvider;
 
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerFactory;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
@@ -377,15 +379,47 @@ public class TomcatServerTaskItemProvider extends SetupTaskItemProvider {
   }
 
   /**
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Collection<? extends EStructuralFeature> getChildrenFeatures(final Object object) {
+    if (childrenFeatures == null) {
+      super.getChildrenFeatures(object);
+      childrenFeatures.add(TomcatServerPackage.Literals.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY);
+    }
+    return childrenFeatures;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EStructuralFeature getChildFeature(final Object object, final Object child) {
+    // Check the type of the specified child object and return the proper feature to use for
+    // adding (see {@link AddCommand}) it as a child.
+
+    return super.getChildFeature(object, child);
+  }
+
+  /**
    * This returns TomcatServerTask.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @generated NOT
+   * @generated
    */
   @Override
   public Object getImage(final Object object) {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/TomcatServerTask.gif"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/TomcatServerTask"));
   }
 
   /**
@@ -441,6 +475,9 @@ public class TomcatServerTaskItemProvider extends SetupTaskItemProvider {
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+        return;
     }
     super.notifyChanged(notification);
   }
@@ -459,6 +496,9 @@ public class TomcatServerTaskItemProvider extends SetupTaskItemProvider {
 
     newChildDescriptors.add(createChildParameter(BasePackage.Literals.MODEL_ELEMENT__ANNOTATIONS,
                                                  BaseFactory.eINSTANCE.createAnnotation()));
+
+    newChildDescriptors.add(createChildParameter(TomcatServerPackage.Literals.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY,
+                                                 TomcatServerFactory.eINSTANCE.createClasspathEntry()));
   }
 
 }

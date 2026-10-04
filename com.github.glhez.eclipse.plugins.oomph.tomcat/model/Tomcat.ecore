@@ -41,6 +41,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoPublish" eType="#//AutoPublish"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additionalClassPathEntry"
+        upperBound="-1" eType="#//ClasspathEntry" containment="true">
+      <eAnnotations source="http://www.eclipse.org/oomph/base/LabelProvider">
+        <details key="description" value="Configure additional classpath entries to add to Tomcat &quot;Classpath&quot; (in Launch configuration). "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClasspathEntry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="*.jar"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TomcatBaseline">
     <eLiterals name="TOMCAT_90" value="1" literal="Tomcat 9.0.x"/>

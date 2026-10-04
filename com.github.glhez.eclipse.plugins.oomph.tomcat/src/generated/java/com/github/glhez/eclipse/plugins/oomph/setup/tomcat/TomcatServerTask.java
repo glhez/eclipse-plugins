@@ -2,6 +2,7 @@
  */
 package com.github.glhez.eclipse.plugins.oomph.setup.tomcat;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.oomph.setup.SetupTask;
 
 /**
@@ -29,6 +30,8 @@ import org.eclipse.oomph.setup.SetupTask;
  * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getStartTimeout <em>Start Timeout</em>}</li>
  * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getStopTimeout <em>Stop Timeout</em>}</li>
  * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getAutoPublish <em>Auto Publish</em>}</li>
+ * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getAdditionalClassPathEntry <em>Additional
+ * Class Path Entry</em>}</li>
  * </ul>
  *
  * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask()
@@ -414,5 +417,20 @@ public interface TomcatServerTask extends SetupTask {
    * @generated
    */
   void setAutoPublish(AutoPublish value);
+
+  /**
+   * Returns the value of the '<em><b>Additional Class Path Entry</b></em>' containment reference list.
+   * The list contents are of type {@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Additional Class Path Entry</em>' containment reference list.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getTomcatServerTask_AdditionalClassPathEntry()
+   * @model containment="true"
+   *        annotation="http://www.eclipse.org/oomph/base/LabelProvider description='Configure additional classpath entries to add
+   *        to Tomcat \"Classpath\" (in Launch configuration). '"
+   * @generated
+   */
+  EList<ClasspathEntry> getAdditionalClassPathEntry();
 
 } // TomcatServerTask

@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.AutoPublish;
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerFactory;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
@@ -62,6 +63,7 @@ public class TomcatServerFactoryImpl extends EFactoryImpl implements TomcatServe
   public EObject create(final EClass eClass) {
     return switch (eClass.getClassifierID()) {
       case TomcatServerPackage.TOMCAT_SERVER_TASK -> createTomcatServerTask();
+      case TomcatServerPackage.CLASSPATH_ENTRY -> createClasspathEntry();
       default -> throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     };
   }
@@ -105,6 +107,17 @@ public class TomcatServerFactoryImpl extends EFactoryImpl implements TomcatServe
   @Override
   public TomcatServerTask createTomcatServerTask() {
     return new TomcatServerTaskImpl();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ClasspathEntry createClasspathEntry() {
+    return new ClasspathEntryImpl();
   }
 
   /**

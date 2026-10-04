@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.oomph.setup.SetupPackage;
 
 /**
@@ -318,6 +319,16 @@ public interface TomcatServerPackage extends EPackage {
   int TOMCAT_SERVER_TASK__AUTO_PUBLISH = SetupPackage.SETUP_TASK_FEATURE_COUNT + 13;
 
   /**
+   * The feature id for the '<em><b>Additional Class Path Entry</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY = SetupPackage.SETUP_TASK_FEATURE_COUNT + 14;
+
+  /**
    * The number of structural features of the '<em>Task</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -325,7 +336,59 @@ public interface TomcatServerPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TOMCAT_SERVER_TASK_FEATURE_COUNT = SetupPackage.SETUP_TASK_FEATURE_COUNT + 14;
+  int TOMCAT_SERVER_TASK_FEATURE_COUNT = SetupPackage.SETUP_TASK_FEATURE_COUNT + 15;
+
+  /**
+   * The meta object id for the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.ClasspathEntryImpl <em>Classpath
+   * Entry</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.ClasspathEntryImpl
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerPackageImpl#getClasspathEntry()
+   * @generated
+   */
+  int CLASSPATH_ENTRY = 1;
+
+  /**
+   * The feature id for the '<em><b>Entry</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CLASSPATH_ENTRY__ENTRY = 0;
+
+  /**
+   * The feature id for the '<em><b>Pattern</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CLASSPATH_ENTRY__PATTERN = 1;
+
+  /**
+   * The feature id for the '<em><b>Sort</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CLASSPATH_ENTRY__SORT = 2;
+
+  /**
+   * The number of structural features of the '<em>Classpath Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CLASSPATH_ENTRY_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline <em>Tomcat
@@ -337,7 +400,7 @@ public interface TomcatServerPackage extends EPackage {
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerPackageImpl#getTomcatBaseline()
    * @generated
    */
-  int TOMCAT_BASELINE = 1;
+  int TOMCAT_BASELINE = 2;
 
   /**
    * The meta object id for the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.AutoPublish <em>Auto Publish</em>}'
@@ -349,7 +412,7 @@ public interface TomcatServerPackage extends EPackage {
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerPackageImpl#getAutoPublish()
    * @generated
    */
-  int AUTO_PUBLISH = 2;
+  int AUTO_PUBLISH = 3;
 
   /**
    * Returns the meta object for class '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask <em>Task</em>}'.
@@ -547,6 +610,71 @@ public interface TomcatServerPackage extends EPackage {
   EAttribute getTomcatServerTask_AutoPublish();
 
   /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getAdditionalClassPathEntry <em>Additional Class
+   * Path Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Additional Class Path Entry</em>'.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask#getAdditionalClassPathEntry()
+   * @see #getTomcatServerTask()
+   * @generated
+   */
+  EReference getTomcatServerTask_AdditionalClassPathEntry();
+
+  /**
+   * Returns the meta object for class '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry <em>Classpath
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Classpath Entry</em>'.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry
+   * @generated
+   */
+  EClass getClasspathEntry();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#getEntry
+   * <em>Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Entry</em>'.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#getEntry()
+   * @see #getClasspathEntry()
+   * @generated
+   */
+  EAttribute getClasspathEntry_Entry();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#getPattern
+   * <em>Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Pattern</em>'.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#getPattern()
+   * @see #getClasspathEntry()
+   * @generated
+   */
+  EAttribute getClasspathEntry_Pattern();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#isSort
+   * <em>Sort</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Sort</em>'.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry#isSort()
+   * @see #getClasspathEntry()
+   * @generated
+   */
+  EAttribute getClasspathEntry_Sort();
+
+  /**
    * Returns the meta object for enum '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline <em>Tomcat
    * Baseline</em>}'.
    * <!-- begin-user-doc -->
@@ -731,6 +859,54 @@ public interface TomcatServerPackage extends EPackage {
      * @generated
      */
     EAttribute TOMCAT_SERVER_TASK__AUTO_PUBLISH = eINSTANCE.getTomcatServerTask_AutoPublish();
+
+    /**
+     * The meta object literal for the '<em><b>Additional Class Path Entry</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY = eINSTANCE.getTomcatServerTask_AdditionalClassPathEntry();
+
+    /**
+     * The meta object literal for the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.ClasspathEntryImpl
+     * <em>Classpath Entry</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.ClasspathEntryImpl
+     * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerPackageImpl#getClasspathEntry()
+     * @generated
+     */
+    EClass CLASSPATH_ENTRY = eINSTANCE.getClasspathEntry();
+
+    /**
+     * The meta object literal for the '<em><b>Entry</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CLASSPATH_ENTRY__ENTRY = eINSTANCE.getClasspathEntry_Entry();
+
+    /**
+     * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CLASSPATH_ENTRY__PATTERN = eINSTANCE.getClasspathEntry_Pattern();
+
+    /**
+     * The meta object literal for the '<em><b>Sort</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CLASSPATH_ENTRY__SORT = eINSTANCE.getClasspathEntry_Sort();
 
     /**
      * The meta object literal for the '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline <em>Tomcat

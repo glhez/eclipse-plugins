@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.oomph.base.ModelElement;
 import org.eclipse.oomph.setup.SetupTask;
 
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
@@ -88,6 +89,14 @@ public class TomcatServerSwitch<T> extends Switch<T> {
         }
         return result;
       }
+      case TomcatServerPackage.CLASSPATH_ENTRY: {
+        var classpathEntry = (ClasspathEntry) theEObject;
+        var result = caseClasspathEntry(classpathEntry);
+        if (result == null) {
+          result = defaultCase(theEObject);
+        }
+        return result;
+      }
       default:
         return defaultCase(theEObject);
     }
@@ -107,6 +116,23 @@ public class TomcatServerSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTomcatServerTask(final TomcatServerTask object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Classpath Entry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object
+   *          the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classpath Entry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClasspathEntry(final ClasspathEntry object) {
     return null;
   }
 

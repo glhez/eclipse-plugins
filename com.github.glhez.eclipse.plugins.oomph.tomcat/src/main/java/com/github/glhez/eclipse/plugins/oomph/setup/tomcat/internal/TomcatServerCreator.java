@@ -2,17 +2,24 @@ package com.github.glhez.eclipse.plugins.oomph.setup.tomcat.internal;
 
 import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toCollection;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.OptionalInt;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jdt.internal.launching.StandardVMType;
@@ -32,12 +39,17 @@ import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerPort;
 import org.eclipse.wst.server.core.internal.ServerWorkingCopy;
+import org.eclipse.wst.server.core.model.ServerBehaviourDelegate;
 
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.AutoPublish;
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
 public class TomcatServerCreator {
+  private static final String CATALINA_HOME_PREFIX = "${catalina.home}/";
+  private static final String CATALINA_BASE_PREFIX = "${catalina.base}/";
+
   private static final Map<TomcatBaseline, TomcatPluginInfo> INFOS;
 
   static {
@@ -67,7 +79,8 @@ public class TomcatServerCreator {
         && isAttributeValid(context, "serverName", task.getServerName())
         && isAttributeValid(context, "serverVersion", task.getServerVersion())
         && isAttributeValid(context, "location", task.getLocation())
-        && isAttributeValid(context, "jreVersion", task.getJreVersion());
+        && isAttributeValid(context, "jreVersion", task.getJreVersion())
+        && isClasspathEntriesValid(context, task.getAdditionalClassPathEntry());
   }
 
   private boolean isAttributeValid(final SetupTaskContext context, final String name, final String value) {
@@ -83,6 +96,23 @@ public class TomcatServerCreator {
       context.log("Attribute %s is null or blank".formatted(name), Severity.WARNING);
     }
     return valid;
+  }
+
+  private boolean isClasspathEntriesValid(final SetupTaskContext context, final List<ClasspathEntry> bootstrapEntries) {
+    if (bootstrapEntries == null || bootstrapEntries.isEmpty()) {
+      return true;
+    }
+
+    var i = 0;
+    for (var bootstrapEntry : bootstrapEntries) {
+      var entry = bootstrapEntry.getEntry();
+      if (entry == null || entry.isBlank()) {
+        context.log("Attribute bootstrapEntry[%d] is null or blank".formatted(i), Severity.WARNING);
+        return false;
+      }
+      ++i;
+    }
+    return true;
   }
 
   public void perform(final SetupTaskContext context) throws TomcatSetupTaskException, CoreException {
@@ -172,7 +202,7 @@ public class TomcatServerCreator {
       var javaRuntime = findJre();
 
       var rwc = runtimeType.createRuntime(task.getRuntimeName(), monitor);
-      rwc.setLocation(Path.fromOSString(task.getLocation()));
+      rwc.setLocation(IPath.fromOSString(task.getLocation()));
       rwc.setName(task.getRuntimeName());
 
       var jwc = (IJavaRuntimeWorkingCopy) rwc.loadAdapter(IJavaRuntimeWorkingCopy.class, null);
@@ -239,15 +269,12 @@ public class TomcatServerCreator {
       return new ServerWorkingCopyAndServer(server, server.save(false, monitor));
     }
 
-    private void customizeLaunchConfigurations(final IServer server, final String launchProgramArgs, final String launchVmArgs) throws CoreException {
+    private void customizeLaunchConfigurations(final IServer server, final String launchProgramArgs, final String launchVmArgs)
+        throws CoreException, TomcatSetupTaskException {
       var attributes = Stream.of(LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, launchProgramArgs),
                                  LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, launchVmArgs))
                              .filter(LaunchAttribute::isNotEmpty)
                              .toList();
-
-      if (attributes.isEmpty()) {
-        return;
-      }
 
       info("customizing launch configuration for server %s", task.getServerName());
 
@@ -259,9 +286,43 @@ public class TomcatServerCreator {
           attr.set(copy, actual + " " + attr.userValue());
         }
       }
+      customizeLaunchClassPath(server, copy);
+
       if (copy.isDirty()) {
         copy.doSave();
       }
+    }
+
+    private void customizeLaunchClassPath(final IServer server, final ILaunchConfigurationWorkingCopy copy)
+        throws TomcatSetupTaskException, CoreException {
+      var userBootstrapEntries = new UserBootstrapEntryConfigurer(server).collect(task.getAdditionalClassPathEntry());
+      if (userBootstrapEntries.isEmpty()) {
+        return;
+      }
+
+      if (server.loadAdapter(ServerBehaviourDelegate.class, monitor) instanceof ServerBehaviourDelegate behaviour) {
+        /*
+         * this is required because the tomcat-juli/bootstrap.jar are not yet registered.
+         *
+         * see org.eclipse.jst.server.tomcat.core.internal.Tomcat110Handler.getRuntimeClasspath(IPath, IPath)
+         */
+        behaviour.setupLaunchConfiguration(copy, monitor);
+      } else {
+        warn("could not 'adapt' %s to %s ", server, ServerBehaviourDelegate.class);
+      }
+
+      var existingEntries = new ArrayList<>(copy.getAttribute(IJavaLaunchConfigurationConstants.ATTR_CLASSPATH, List.of()));
+
+      for (var userBootstrapEntry : userBootstrapEntries) {
+        var memento = JavaRuntime.newArchiveRuntimeClasspathEntry(userBootstrapEntry).getMemento();
+        if (!existingEntries.contains(memento)) {
+          info("adding %s to the classpath", userBootstrapEntries);
+          existingEntries.add(memento);
+        }
+      }
+
+      copy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_CLASSPATH, existingEntries);
+      copy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_DEFAULT_CLASSPATH, false);
     }
 
     private void customizeTomcatPorts(final IServerWorkingCopy workingCopy, final IServer server) throws CoreException, TomcatSetupTaskException {
@@ -311,6 +372,60 @@ public class TomcatServerCreator {
       } catch (NumberFormatException e) {
         throw new TomcatSetupTaskException("Could not convert " + what + " (" + v + ") to int: " + e.getMessage());
       }
+    }
+
+  }
+
+  static class UserBootstrapEntryConfigurer {
+    private static final List<String> ALLOWED_PREFIX = List.of(CATALINA_HOME_PREFIX, CATALINA_BASE_PREFIX);
+    private final IPath catalinaHome; // and base
+    private final List<IPath> entries;
+
+    public UserBootstrapEntryConfigurer(final IServer server) {
+      this.catalinaHome = server.getRuntime().getLocation();
+      this.entries = new ArrayList<>();
+    }
+
+    public List<IPath> collect(final List<ClasspathEntry> entries) throws TomcatSetupTaskException {
+      if (entries != null && !entries.isEmpty()) {
+        for (var entry : entries) {
+          collect(entry);
+        }
+      }
+      return this.entries;
+    }
+
+    private void collect(final ClasspathEntry entry) throws TomcatSetupTaskException {
+      var root = resolveRoot(entry.getEntry().strip());
+      var pattern = Objects.toString(entry.getPattern(), "*.jar");
+      var sort = entry.isSort();
+
+      if (Files.isRegularFile(root)) {
+        entries.add(IPath.fromPath(root));
+      } else if (Files.isDirectory(root)) {
+        var matcher = root.getFileSystem().getPathMatcher("glob:" + pattern);
+        try (var ss = Files.find(root, Integer.MAX_VALUE, (p, attrs) -> matcher.matches(p) && attrs.isRegularFile()).map(IPath::fromPath)) {
+          if (sort) {
+            entries.addAll(ss.collect(toCollection(TreeSet::new)));
+          } else {
+            entries.addAll(ss.toList());
+          }
+        } catch (IOException e) {
+          throw new TomcatSetupTaskException("Could not add Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + ")", e);
+        }
+      } else {
+        throw new TomcatSetupTaskException("Invalid Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + "): does it exists?");
+      }
+    }
+
+    private java.nio.file.Path resolveRoot(final String root) {
+      for (var prefix : ALLOWED_PREFIX) {
+        if (root.startsWith(prefix)) {
+          // catalina.base will always some junk path in workspace, so don't bother getting it.
+          return catalinaHome.append(root.substring(prefix.length())).toPath();
+        }
+      }
+      return java.nio.file.Path.of(root);
     }
   }
 

@@ -129,6 +129,32 @@ public class TomcatServerItemProviderAdapterFactory extends TomcatServerAdapterF
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry}
+   * instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected ClasspathEntryItemProvider classpathEntryItemProvider;
+
+  /**
+   * This creates an adapter for a {@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Adapter createClasspathEntryAdapter() {
+    if (classpathEntryItemProvider == null) {
+      classpathEntryItemProvider = new ClasspathEntryItemProvider(this);
+    }
+
+    return classpathEntryItemProvider;
+  }
+
+  /**
    * This returns the root adapter factory that contains this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -277,6 +303,9 @@ public class TomcatServerItemProviderAdapterFactory extends TomcatServerAdapterF
     if (tomcatServerTaskItemProvider != null) {
       tomcatServerTaskItemProvider.dispose();
     }
+    if (classpathEntryItemProvider != null) {
+      classpathEntryItemProvider.dispose();
+    }
   }
 
   /**
@@ -335,6 +364,9 @@ public class TomcatServerItemProviderAdapterFactory extends TomcatServerAdapterF
       public Object caseAnnotation(final Annotation object) {
         newChildDescriptors.add(createChildParameter(BasePackage.Literals.ANNOTATION__CONTENTS,
                                                      TomcatServerFactory.eINSTANCE.createTomcatServerTask()));
+
+        newChildDescriptors.add(createChildParameter(BasePackage.Literals.ANNOTATION__CONTENTS,
+                                                     TomcatServerFactory.eINSTANCE.createClasspathEntry()));
 
         return null;
       }

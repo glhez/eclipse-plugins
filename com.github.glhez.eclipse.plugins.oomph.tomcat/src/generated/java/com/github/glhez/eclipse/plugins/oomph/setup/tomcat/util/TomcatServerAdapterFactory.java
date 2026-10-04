@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.oomph.base.ModelElement;
 import org.eclipse.oomph.setup.SetupTask;
 
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
@@ -79,6 +80,11 @@ public class TomcatServerAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
+    public Adapter caseClasspathEntry(final ClasspathEntry object) {
+      return createClasspathEntryAdapter();
+    }
+
+    @Override
     public Adapter caseModelElement(final ModelElement object) {
       return createModelElementAdapter();
     }
@@ -122,6 +128,22 @@ public class TomcatServerAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTomcatServerTaskAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry
+   * <em>Classpath Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry
+   * @generated
+   */
+  public Adapter createClasspathEntryAdapter() {
     return null;
   }
 

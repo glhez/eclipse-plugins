@@ -2,13 +2,21 @@
  */
 package com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.oomph.setup.SetupTaskContext;
 import org.eclipse.oomph.setup.impl.SetupTaskImpl;
 
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.AutoPublish;
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.ClasspathEntry;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
@@ -46,6 +54,8 @@ import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.internal.TomcatServer
  * Timeout</em>}</li>
  * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerTaskImpl#getAutoPublish <em>Auto
  * Publish</em>}</li>
+ * <li>{@link com.github.glhez.eclipse.plugins.oomph.setup.tomcat.impl.TomcatServerTaskImpl#getAdditionalClassPathEntry
+ * <em>Additional Class Path Entry</em>}</li>
  * </ul>
  *
  * @generated
@@ -359,6 +369,21 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    */
   protected AutoPublish autoPublish = AUTO_PUBLISH_EDEFAULT;
 
+  /**
+   * The cached value of the '{@link #getAdditionalClassPathEntry() <em>Additional Class Path Entry</em>}' containment reference
+   * list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getAdditionalClassPathEntry()
+   * @generated
+   * @ordered
+   */
+  protected EList<ClasspathEntry> additionalClassPathEntry;
+
+  /**
+   * @generated NOT
+   */
   private final TomcatServerCreator creator;
 
   /**
@@ -755,6 +780,36 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    * @generated
    */
   @Override
+  public EList<ClasspathEntry> getAdditionalClassPathEntry() {
+    if (additionalClassPathEntry == null) {
+      additionalClassPathEntry = new EObjectContainmentEList<>(ClasspathEntry.class, this,
+          TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY);
+    }
+    return additionalClassPathEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+    switch (featureID) {
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        return ((InternalEList<?>) getAdditionalClassPathEntry()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
       case TomcatServerPackage.TOMCAT_SERVER_TASK__SERVER_NAME:
@@ -785,6 +840,8 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
         return getStopTimeout();
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         return getAutoPublish();
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        return getAdditionalClassPathEntry();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -795,6 +852,7 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
    *
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
@@ -839,6 +897,10 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
         return;
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         setAutoPublish((AutoPublish) newValue);
+        return;
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        getAdditionalClassPathEntry().clear();
+        getAdditionalClassPathEntry().addAll((Collection<? extends ClasspathEntry>) newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -895,6 +957,9 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         setAutoPublish(AUTO_PUBLISH_EDEFAULT);
         return;
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        getAdditionalClassPathEntry().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -936,6 +1001,8 @@ public class TomcatServerTaskImpl extends SetupTaskImpl implements TomcatServerT
         return STOP_TIMEOUT_EDEFAULT == null ? stopTimeout != null : !STOP_TIMEOUT_EDEFAULT.equals(stopTimeout);
       case TomcatServerPackage.TOMCAT_SERVER_TASK__AUTO_PUBLISH:
         return autoPublish != AUTO_PUBLISH_EDEFAULT;
+      case TomcatServerPackage.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY:
+        return additionalClassPathEntry != null && !additionalClassPathEntry.isEmpty();
     }
     return super.eIsSet(featureID);
   }
