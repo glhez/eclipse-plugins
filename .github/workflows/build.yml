@@ -19,7 +19,8 @@ jobs:
     - name: build
       run: |
         base64 --decode > "${KEYSTORE_PATH}" <<< "${{ secrets.KEYSTORE_DATA }}"
-        ./mvnw -B verify -DperformRelease=true
+        QUALIFIER="$(git show -s --format=%cd --date=format:%Y%m%d%H%M HEAD)"
+        ./mvnw -B verify -DperformRelease=true -DforceContextQualifier="$QUALIFIER"
       env:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_KEY }}
