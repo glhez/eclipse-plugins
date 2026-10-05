@@ -2,10 +2,10 @@ package com.github.glhez.eclipse.plugins.oomph.setup.tomcat.internal;
 
 import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toCollection;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.OptionalInt;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -47,6 +46,8 @@ import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
 public class TomcatServerCreator {
+  private static final String REGEX_PREFIX = "regex:";
+  private static final String GLOB_PREFIX = "glob:";
   private static final String CATALINA_HOME_PREFIX = "${catalina.home}/";
   private static final String CATALINA_BASE_PREFIX = "${catalina.base}/";
 
@@ -105,11 +106,17 @@ public class TomcatServerCreator {
 
     var i = 0;
     for (var bootstrapEntry : bootstrapEntries) {
-      var entry = bootstrapEntry.getEntry();
-      if (entry == null || entry.isBlank()) {
-        context.log("Attribute bootstrapEntry[%d] is null or blank".formatted(i), Severity.WARNING);
+      var entry = Objects.toString(bootstrapEntry.getEntry(), "").strip();
+      if (entry.isEmpty()) {
+        context.log("Attribute bootstrapEntry[%d].path is empty".formatted(i), Severity.WARNING);
         return false;
       }
+      var pattern = Objects.toString(bootstrapEntry.getPattern(), "").strip();
+      if (!pattern.isEmpty() && !pattern.startsWith(GLOB_PREFIX) && !pattern.startsWith(REGEX_PREFIX)) {
+        context.log("Attribute bootstrapEntry[%d].pattern must be empty or starts with glob: or regex:".formatted(i), Severity.WARNING);
+        return false;
+      }
+
       ++i;
     }
     return true;
@@ -390,25 +397,25 @@ public class TomcatServerCreator {
 
     private void collect(final ClasspathEntry entry) throws TomcatSetupTaskException {
       var root = resolveRoot(entry.getEntry().strip());
-      var pattern = Objects.toString(entry.getPattern(), "*.jar");
+      var pattern = Objects.toString(entry.getPattern(), GLOB_PREFIX + "**.jar");
       var sort = entry.isSort();
 
       if (Files.isRegularFile(root)) {
         entries.add(IPath.fromPath(root));
       } else if (Files.isDirectory(root)) {
-        var matcher = root.getFileSystem().getPathMatcher("glob:" + pattern);
-        try (var ss = Files.find(root, Integer.MAX_VALUE, (p, attrs) -> matcher.matches(p) && attrs.isRegularFile()).map(IPath::fromPath)) {
-          if (sort) {
-            entries.addAll(ss.collect(toCollection(TreeSet::new)));
-          } else {
-            entries.addAll(ss.toList());
-          }
+        var matcher = root.getFileSystem().getPathMatcher(pattern);
+        try (var ss = Files.find(root, Integer.MAX_VALUE, (p, attrs) -> matcher.matches(p) && attrs.isRegularFile())) {
+          entries.addAll(applySort(ss, sort).map(IPath::fromPath).toList());
         } catch (IOException e) {
           throw new TomcatSetupTaskException("Could not add Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + ")", e);
         }
       } else {
         throw new TomcatSetupTaskException("Invalid Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + "): does it exists?");
       }
+    }
+
+    private Stream<Path> applySort(final Stream<Path> source, final boolean sort) {
+      return sort ? source.sorted() : source;
     }
 
     private java.nio.file.Path resolveRoot(final String root) {

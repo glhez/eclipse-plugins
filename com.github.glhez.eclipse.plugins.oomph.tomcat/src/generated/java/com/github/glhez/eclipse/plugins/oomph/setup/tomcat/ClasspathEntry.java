@@ -32,6 +32,8 @@ public interface ClasspathEntry extends EObject {
    * @see #setEntry(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getClasspathEntry_Entry()
    * @model required="true"
+   *        annotation="http://www.eclipse.org/oomph/base/LabelProvider description='Path. May start with ${catalina.home}/,
+   *        ${catalina.base}/. It must exists on the file system.'"
    * @generated
    */
   String getEntry();
@@ -59,6 +61,8 @@ public interface ClasspathEntry extends EObject {
    * @see #setPattern(String)
    * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getClasspathEntry_Pattern()
    * @model default="*.jar"
+   *        annotation="http://www.eclipse.org/oomph/base/LabelProvider description='Use a pattern; default to glob:**.jar, thus
+   *        matching all jar. Pattern should start with glob: or regex: '"
    * @generated
    */
   String getPattern();

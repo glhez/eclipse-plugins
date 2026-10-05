@@ -12,8 +12,6 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.oomph.base.BaseFactory;
-import org.eclipse.oomph.base.BasePackage;
 import org.eclipse.oomph.setup.provider.SetupTaskItemProvider;
 
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerFactory;
@@ -493,9 +491,6 @@ public class TomcatServerTaskItemProvider extends SetupTaskItemProvider {
   @Override
   protected void collectNewChildDescriptors(final Collection<Object> newChildDescriptors, final Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
-
-    newChildDescriptors.add(createChildParameter(BasePackage.Literals.MODEL_ELEMENT__ANNOTATIONS,
-                                                 BaseFactory.eINSTANCE.createAnnotation()));
 
     newChildDescriptors.add(createChildParameter(TomcatServerPackage.Literals.TOMCAT_SERVER_TASK__ADDITIONAL_CLASS_PATH_ENTRY,
                                                  TomcatServerFactory.eINSTANCE.createClasspathEntry()));

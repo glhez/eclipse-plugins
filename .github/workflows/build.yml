@@ -35,4 +35,6 @@ jobs:
       with:
         branch: gh-pages
         folder: com.github.glhez.eclipse.releng.updatesite/target/repository
+        clean: true
+        single-commit: true
 

@@ -577,6 +577,16 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   new String[] {
                       "description", "Configure additional classpath entries to add to Tomcat \"Classpath\" (in Launch configuration). "
                   });
+    addAnnotation(getClasspathEntry_Entry(),
+                  source,
+                  new String[] {
+                      "description", "Path. May start with ${catalina.home}/,  ${catalina.base}/. It must exists on the file system."
+                  });
+    addAnnotation(getClasspathEntry_Pattern(),
+                  source,
+                  new String[] {
+                      "description", "Use a pattern; default to glob:**.jar, thus matching all jar. Pattern should start with glob: or regex: "
+                  });
   }
 
   /**

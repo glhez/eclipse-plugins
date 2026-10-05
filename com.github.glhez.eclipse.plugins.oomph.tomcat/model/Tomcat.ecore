@@ -49,9 +49,17 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClasspathEntry">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/oomph/base/LabelProvider">
+        <details key="description" value="Path. May start with ${catalina.home}/,  ${catalina.base}/. It must exists on the file system."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="*.jar"/>
+        defaultValueLiteral="*.jar">
+      <eAnnotations source="http://www.eclipse.org/oomph/base/LabelProvider">
+        <details key="description" value="Use a pattern; default to glob:**.jar, thus matching all jar. Pattern should start with glob: or regex: "/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
