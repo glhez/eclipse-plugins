@@ -49,6 +49,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClasspathEntry">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="validPattern"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="entry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/oomph/base/LabelProvider">
         <details key="description" value="Path. May start with ${catalina.home}/,  ${catalina.base}/. It must exists on the file system."/>

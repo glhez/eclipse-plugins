@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage#getClasspathEntry()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='validPattern'"
  * @generated
  */
 public interface ClasspathEntry extends EObject {

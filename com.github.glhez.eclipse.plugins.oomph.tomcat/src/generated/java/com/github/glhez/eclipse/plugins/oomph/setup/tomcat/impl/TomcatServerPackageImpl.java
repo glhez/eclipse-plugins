@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.oomph.base.BasePackage;
 import org.eclipse.oomph.setup.SetupPackage;
@@ -17,6 +18,7 @@ import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerFactory;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerPackage;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
+import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.util.TomcatServerValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -123,6 +125,10 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
 
     // Initialize created meta-data
     theTomcatServerPackage.initializePackageContents();
+
+    // Register package validator
+    EValidator.Registry.INSTANCE.put(theTomcatServerPackage,
+                                     (org.eclipse.emf.ecore.EValidator.Descriptor) () -> TomcatServerValidator.INSTANCE);
 
     // Mark meta-data to indicate it can't be changed
     theTomcatServerPackage.freeze();
@@ -554,6 +560,11 @@ public class TomcatServerPackageImpl extends EPackageImpl implements TomcatServe
                   new String[] {
                       "schemaLocation",
                       "https://raw.githubusercontent.com/glhez/eclipse-plugins/master/com.github.glhez.eclipse.plugins.oomph.tomcat/model/Tomcat-1.0.ecore"
+                  });
+    addAnnotation(classpathEntryEClass,
+                  source,
+                  new String[] {
+                      "constraints", "validPattern"
                   });
   }
 

@@ -4,8 +4,10 @@ import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.joining;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -75,13 +77,12 @@ public class TomcatServerCreator {
     return isValid(context);
   }
 
-  public boolean isValid(final SetupTaskContext context) {
+  private boolean isValid(final SetupTaskContext context) {
     return isAttributeValid(context, "runtimeName", task.getRuntimeName())
         && isAttributeValid(context, "serverName", task.getServerName())
         && isAttributeValid(context, "serverVersion", task.getServerVersion())
         && isAttributeValid(context, "location", task.getLocation())
-        && isAttributeValid(context, "jreVersion", task.getJreVersion())
-        && isClasspathEntriesValid(context, task.getAdditionalClassPathEntry());
+        && isAttributeValid(context, "jreVersion", task.getJreVersion());
   }
 
   private boolean isAttributeValid(final SetupTaskContext context, final String name, final String value) {
@@ -97,29 +98,6 @@ public class TomcatServerCreator {
       context.log("Attribute %s is null or blank".formatted(name), Severity.WARNING);
     }
     return valid;
-  }
-
-  private boolean isClasspathEntriesValid(final SetupTaskContext context, final List<ClasspathEntry> bootstrapEntries) {
-    if (bootstrapEntries == null || bootstrapEntries.isEmpty()) {
-      return true;
-    }
-
-    var i = 0;
-    for (var bootstrapEntry : bootstrapEntries) {
-      var entry = Objects.toString(bootstrapEntry.getEntry(), "").strip();
-      if (entry.isEmpty()) {
-        context.log("Attribute bootstrapEntry[%d].path is empty".formatted(i), Severity.WARNING);
-        return false;
-      }
-      var pattern = Objects.toString(bootstrapEntry.getPattern(), "").strip();
-      if (!pattern.isEmpty() && !pattern.startsWith(GLOB_PREFIX) && !pattern.startsWith(REGEX_PREFIX)) {
-        context.log("Attribute bootstrapEntry[%d].pattern must be empty or starts with glob: or regex:".formatted(i), Severity.WARNING);
-        return false;
-      }
-
-      ++i;
-    }
-    return true;
   }
 
   public void perform(final SetupTaskContext context) throws TomcatSetupTaskException, CoreException {
@@ -170,7 +148,7 @@ public class TomcatServerCreator {
     public void install() throws TomcatSetupTaskException, CoreException {
       var runtime = findOrCreateRuntime();
       var holder = findOrCreateServer(runtime);
-      customizeLaunchConfigurations(holder.server(), task.getLaunchProgramArgs(), task.getLaunchVmArgs());
+      customizeLaunchConfigurations(holder.server());
       customizeTomcatPorts(holder.workingCopy(), holder.server());
 
       monitor.worked(1);
@@ -269,10 +247,10 @@ public class TomcatServerCreator {
       return new ServerWorkingCopyAndServer(server, server.save(false, monitor));
     }
 
-    private void customizeLaunchConfigurations(final IServer server, final String launchProgramArgs, final String launchVmArgs)
+    private void customizeLaunchConfigurations(final IServer server)
         throws CoreException, TomcatSetupTaskException {
-      var attributes = Stream.of(LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, launchProgramArgs),
-                                 LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, launchVmArgs))
+      var attributes = Stream.of(LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, task.getLaunchProgramArgs()),
+                                 LaunchAttribute.of(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, task.getLaunchVmArgs()))
                              .filter(LaunchAttribute::isNotEmpty)
                              .toList();
 
@@ -295,7 +273,7 @@ public class TomcatServerCreator {
 
     private void customizeLaunchClassPath(final IServer server, final ILaunchConfigurationWorkingCopy copy)
         throws TomcatSetupTaskException, CoreException {
-      var userBootstrapEntries = new UserBootstrapEntryConfigurer(server).collect(task.getAdditionalClassPathEntry());
+      var userBootstrapEntries = new UserBootstrapEntryConfigurer(context, server).collect(task.getAdditionalClassPathEntry());
       if (userBootstrapEntries.isEmpty()) {
         return;
       }
@@ -378,39 +356,94 @@ public class TomcatServerCreator {
 
   static class UserBootstrapEntryConfigurer {
     private static final List<String> ALLOWED_PREFIX = List.of(CATALINA_HOME_PREFIX, CATALINA_BASE_PREFIX);
+    private final SetupTaskContext context;
     private final IPath catalinaHome; // and base
     private final List<IPath> entries;
 
-    public UserBootstrapEntryConfigurer(final IServer server) {
+    public UserBootstrapEntryConfigurer(final SetupTaskContext context, final IServer server) {
+      this.context = context;
       this.catalinaHome = server.getRuntime().getLocation();
       this.entries = new ArrayList<>();
     }
 
     public List<IPath> collect(final List<ClasspathEntry> entries) throws TomcatSetupTaskException {
       if (entries != null && !entries.isEmpty()) {
-        for (var entry : entries) {
+        /*
+         * validation does not work, ... validate first
+         */
+        for (var entry : validate(entries)) {
           collect(entry);
         }
       }
       return this.entries;
     }
 
-    private void collect(final ClasspathEntry entry) throws TomcatSetupTaskException {
-      var root = resolveRoot(entry.getEntry().strip());
-      var pattern = Objects.toString(entry.getPattern(), GLOB_PREFIX + "**.jar");
-      var sort = entry.isSort();
+    private List<ValidatedClasspathEntry> validate(final List<ClasspathEntry> entries) throws TomcatSetupTaskException {
+      var index = 0;
+      var errors = new ArrayList<String>();
+      var validatedEntries = new ArrayList<ValidatedClasspathEntry>();
+      for (var entry : entries) {
+        var path = validatePath(errors, index, entry);
+        var pattern = validatePattern(errors, index, entry, path);
+        if (path != null && pattern != null) {
+          validatedEntries.add(new ValidatedClasspathEntry(entry.getEntry(), path, pattern, entry.isSort()));
+        }
+      }
+      if (!errors.isEmpty()) {
+        errors.forEach(msg -> context.log(msg, Severity.ERROR));
+        throw new TomcatSetupTaskException("One or more classpath entry was invalid:" + errors.stream().collect(joining("\n - ", "\n", "\n")));
+      }
+      return validatedEntries;
+    }
 
-      if (Files.isRegularFile(root)) {
-        entries.add(IPath.fromPath(root));
-      } else if (Files.isDirectory(root)) {
-        var matcher = root.getFileSystem().getPathMatcher(pattern);
-        try (var ss = Files.find(root, Integer.MAX_VALUE, (p, attrs) -> matcher.matches(p) && attrs.isRegularFile())) {
-          entries.addAll(applySort(ss, sort).map(IPath::fromPath).toList());
+    private PathMatcher validatePattern(final List<String> errors, final int index, final ClasspathEntry entry, final Path path) {
+      var pattern = Objects.toString(entry.getPattern(), "").strip();
+      if (pattern.isEmpty()) {
+        pattern = "glob:**.jar";
+      }
+      try {
+        if (path == null) {
+          return FileSystems.getDefault().getPathMatcher(pattern);
+        }
+        if (pattern.indexOf(':') == -1) {
+          // java does not add a message beside 'null'.
+          throw new IllegalArgumentException("missing type (glob:, regex: , ...)");
+        }
+
+        return path.getFileSystem().getPathMatcher(pattern);
+      } catch (IllegalArgumentException | UnsupportedOperationException e) {
+        errors.add("classpathEntry[%d].pattern '%s' is not valid: %s".formatted(index, pattern, e.getMessage()));
+        return null;
+      }
+    }
+
+    private Path validatePath(final List<String> errors, final int index, final ClasspathEntry entry) {
+      var path = Objects.toString(entry.getEntry(), "").strip();
+      if (path.isEmpty()) {
+        errors.add("classpathEntry[%d].entry is empty".formatted(index));
+        return null;
+      }
+      var p = resolveRoot(path);
+      if (Files.notExists(p)) {
+        errors.add("classpathEntry[%d].entry does not point a valid path: %s -> %s".formatted(index, path, p));
+        return null;
+      }
+      return p;
+    }
+
+    private void collect(final ValidatedClasspathEntry entry) throws TomcatSetupTaskException {
+      if (Files.isRegularFile(entry.path())) {
+        entries.add(IPath.fromPath(entry.path()));
+      } else if (Files.isDirectory(entry.path())) {
+        var matcher = entry.pattern();
+        try (var ss = Files.find(entry.path(), Integer.MAX_VALUE, (p, attrs) -> matcher.matches(p) && attrs.isRegularFile())) {
+          entries.addAll(applySort(ss, entry.sort()).map(IPath::fromPath).toList());
         } catch (IOException e) {
-          throw new TomcatSetupTaskException("Could not add Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + ")", e);
+          throw new TomcatSetupTaskException("Could not add Tomcat bootstrap entry <" + entry.source() + "> (resolved to " + entry.path() + ")", e);
         }
       } else {
-        throw new TomcatSetupTaskException("Invalid Tomcat bootstrap entry <" + entry.getEntry() + "> (resolved to " + root + "): does it exists?");
+        throw new TomcatSetupTaskException(
+            "Invalid Tomcat bootstrap entry <" + entry.source() + "> (resolved to " + entry.path() + "): does it exists?");
       }
     }
 
@@ -429,6 +462,8 @@ public class TomcatServerCreator {
     }
   }
 
+  record ValidatedClasspathEntry(String source, java.nio.file.Path path, PathMatcher pattern, boolean sort) {}
+
   record LaunchAttribute(String key, String userValue) {
 
     public static LaunchAttribute of(final String key, final String userValue) {
@@ -446,11 +481,6 @@ public class TomcatServerCreator {
     boolean isNotEmpty() {
       return !userValue.isEmpty();
     }
-  }
-
-  @FunctionalInterface
-  interface DeleteHandler<T> {
-    void delete(T instance) throws CoreException;
   }
 
   record ServerWorkingCopyAndServer(IServerWorkingCopy workingCopy, IServer server) {}
