@@ -91,10 +91,9 @@ final class AddSuppressWarningsResolution
     var valuePair = ast.newMemberValuePair();
     valuePair.setName(ast.newSimpleName(VALUE_ATTRIBUTE));
 
-    var values = ast.newArrayInitializer();
-    values.expressions().add(newStringLiteral(ast, ruleKey));
-    valuePair.setValue(values);
-    annotation.values().add(valuePair);
+    var value = ast.newStringLiteral();
+    value.setLiteralValue(ruleKey);
+    annotation.values().add(value);
 
     rewrite.getListRewrite(target, property).insertFirst(annotation, null);
   }

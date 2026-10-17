@@ -46,19 +46,20 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
   @Override
   public IMarkerResolution[] getResolutions(final IMarker marker) {
     try {
-      return findCompilationUnit(marker).map(unit -> newResolutionsBuilder(unit, marker))
-                                        .map(ResolutionsBuilder::build)
-                                        .orElse(NO_MARKERS);
+      return findCompilationUnitIfMarkerHasResolutions(marker).map(unit -> newResolutionsBuilder(unit, marker))
+                                                              .map(ResolutionsBuilder::build)
+                                                              .orElse(NO_MARKERS);
     } catch (SuperPrivateRuntimeExceptionAgainstCheckedException e) {
       log("could not create marker " + marker + " quickfixes", e.getCause());
       return NO_MARKERS;
     }
   }
 
-  private Optional<ICompilationUnit> findCompilationUnit(final IMarker marker) {
-    if (!hasResolutions(marker)) {
-      return Optional.empty();
-    }
+  private Optional<ICompilationUnit> findCompilationUnitIfMarkerHasResolutions(final IMarker marker) {
+    return hasResolutions(marker) ? findCompilationUnit(marker) : Optional.empty();
+  }
+
+  static Optional<ICompilationUnit> findCompilationUnit(final IMarker marker) {
     if (!(marker.getResource() instanceof IFile file)) {
       return Optional.empty();
     }
@@ -121,7 +122,6 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
 
   static class ResolutionsBuilder {
     private final ICompilationUnit unit;
-    private final IMarker marker;
     private final List<IMarkerResolution> resolutions;
     private final CompilationUnit ast;
     private final int offset;
@@ -129,7 +129,6 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
 
     public ResolutionsBuilder(final ICompilationUnit unit, final IMarker marker) throws BadLocationException, JavaModelException {
       this.unit = unit;
-      this.marker = marker;
       this.resolutions = new ArrayList<>(10);
 
       var source = unit.getSource();
@@ -139,7 +138,7 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
     }
 
     public IMarkerResolution[] build() {
-      resolutions.add(new AddNoSonarResolution(unit, marker));
+      resolutions.add(new AddNoSonarResolution());
       appendCandidates().map(candidate -> new AddSuppressWarningsResolution(unit, candidate, ruleKey)).forEach(resolutions::add);
       return resolutions.toArray(IMarkerResolution[]::new);
     }
