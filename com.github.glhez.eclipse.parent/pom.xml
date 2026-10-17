@@ -4,7 +4,7 @@
 
   <parent>
     <groupId>com.github.glhez.parent</groupId>
-    <artifactId>java-21</artifactId>
+    <artifactId>java-25</artifactId>
     <version>127</version>
     <relativePath/>
   </parent>
@@ -37,15 +37,20 @@
     </repository>
 
     <repository>
-      <id>eclipse.org-2026-06</id>
+      <id>eclipse.org-2026-09</id>
       <url>https://download.eclipse.org/releases/2026-09</url>
       <layout>p2</layout>
     </repository>
     <repository>
-      <id>eclipse.org-updates-4.40</id>
+      <id>eclipse.org-updates-4.41</id>
       <url>https://download.eclipse.org/eclipse/updates/4.41</url>
       <layout>p2</layout>
     </repository>
+    <!-- <repository>
+      <id>eclipse-uc.sonarlint.org</id>
+      <url>https://eclipse-uc.sonarlint.org</url>
+      <layout>p2</layout>
+    </repository> -->
   </repositories>
 
   <pluginRepositories>
@@ -157,7 +162,7 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <configuration>
-          <executionEnvironment>JavaSE-21</executionEnvironment>
+          <executionEnvironment>JavaSE-25</executionEnvironment>
           <targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
           <environments>
             <environment>

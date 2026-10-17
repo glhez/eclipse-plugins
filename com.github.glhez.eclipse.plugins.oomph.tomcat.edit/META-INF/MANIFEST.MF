@@ -8,7 +8,7 @@ Bundle-ClassPath: .
 Bundle-Activator: com.github.glhez.eclipse.plugins.oomph.setup.tomcat.provider.TomcatEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-RequiredExecutionEnvironment: JavaSE-25
 Export-Package: com.github.glhez.eclipse.plugins.oomph.setup.tomcat.provider
 Require-Bundle: org.eclipse.core.runtime,
  com.github.glhez.eclipse.plugins.oomph.tomcat;visibility:=reexport,

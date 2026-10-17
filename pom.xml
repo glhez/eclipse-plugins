@@ -16,6 +16,7 @@
     <module>com.github.glhez.eclipse.parent</module>
     <module>com.github.glhez.eclipse.plugins.staticimport</module>
     <module>com.github.glhez.eclipse.plugins.perspective</module>
+    <module>com.github.glhez.eclipse.plugins.sonarquickfix</module>
     <module>com.github.glhez.eclipse.plugins.oomph.tomcat</module>
     <module>com.github.glhez.eclipse.plugins.oomph.tomcat.edit</module>
     <module>com.github.glhez.eclipse.features.all</module>

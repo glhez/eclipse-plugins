@@ -17,19 +17,5 @@
       <selectedType markerId="org.sonarlint.eclipse.core.sonarlintReportProblem" />
       <selectedType markerId="org.sonarlint.eclipse.core.sonarlintHotspot" />
     </problemFilter>
-    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.CheckStyle" name="CheckStyle Issues" scope="ON_ANY">
-      <selectedType markerId="net.sf.eclipsecs.core.CheckstyleMarker" />
-    </problemFilter>
-    <problemFilter enabled="false" id="com.github.glhez.eclipse.plugins.perspective.problems.UCDetector" name="UCDetector" scope="ON_ANY">
-      <selectedType markerId="org.ucdetector.analyzeMarker" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerFewReference" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerFinal" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerOther" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerReference" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerTestOnly" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityDefault" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityPrivate" />
-      <selectedType markerId="org.ucdetector.analyzeMarkerVisibilityProtected" />
-    </problemFilter>
   </extension>
 </plugin>

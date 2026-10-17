@@ -3,6 +3,7 @@
   <description>glhez&apos;s collection of Eclipse plugin</description>
   <copyright>© Use At Your Own Risk</copyright>
   <license>© Use At Your Own Risk</license>
-  <plugin id="com.github.glhez.eclipse.plugins.staticimport"  download-size="0" install-size="0" version="0.0.0" unpack="false" />
-  <plugin id="com.github.glhez.eclipse.plugins.perspective"  download-size="0" install-size="0" version="0.0.0" unpack="false" />
+  <plugin id="com.github.glhez.eclipse.plugins.staticimport"   download-size="0" install-size="0" version="0.0.0" unpack="false" />
+  <plugin id="com.github.glhez.eclipse.plugins.perspective"    download-size="0" install-size="0" version="0.0.0" unpack="false" />
+  <plugin id="com.github.glhez.eclipse.plugins.sonarquickfix"  download-size="0" install-size="0" version="0.0.0" unpack="false" />
 </feature>

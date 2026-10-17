@@ -48,8 +48,6 @@ import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatBaseline;
 import com.github.glhez.eclipse.plugins.oomph.setup.tomcat.TomcatServerTask;
 
 public class TomcatServerCreator {
-  private static final String REGEX_PREFIX = "regex:";
-  private static final String GLOB_PREFIX = "glob:";
   private static final String CATALINA_HOME_PREFIX = "${catalina.home}/";
   private static final String CATALINA_BASE_PREFIX = "${catalina.base}/";
 
