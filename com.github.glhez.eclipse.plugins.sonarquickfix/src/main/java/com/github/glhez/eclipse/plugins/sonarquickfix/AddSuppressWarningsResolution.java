@@ -24,7 +24,7 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.ui.IMarkerResolution;
 
-import com.github.glhez.eclipse.plugins.sonarquickfix.SonarQuickFixResolutionGenerator.Candidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.SuppressWarningsCandidate;
 
 final class AddSuppressWarningsResolution
     implements IMarkerResolution {
@@ -32,11 +32,11 @@ final class AddSuppressWarningsResolution
   private static final String SUPPRESS_WARNINGS_ANNOTATION_NAME = "SuppressWarnings";
 
   private final ICompilationUnit unit;
-  private final Candidate candidate;
+  private final SuppressWarningsCandidate<? extends ASTNode> candidate;
   private final String ruleKey;
 
   AddSuppressWarningsResolution(
-      final ICompilationUnit unit, final Candidate candidate, final String ruleKey) {
+      final ICompilationUnit unit, final SuppressWarningsCandidate<? extends ASTNode> candidate, final String ruleKey) {
     this.unit = unit;
     this.candidate = candidate;
     this.ruleKey = ruleKey;
@@ -44,7 +44,7 @@ final class AddSuppressWarningsResolution
 
   @Override
   public String getLabel() {
-    return "Add @SuppressWarnings(\"" + ruleKey + "\") to " + candidate.description();
+    return "Add @SuppressWarnings(\"" + ruleKey + "\") to " + candidate;
   }
 
   @Override

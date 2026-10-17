@@ -37,8 +37,12 @@ class QuickFixNamer {
     return variable(v.fragments()); // List<VariableDeclarationFragment>
   }
 
-  static String name(final SingleVariableDeclaration svd) {
-    return "variable/parameter " + svd.getName();
+  static String parameter(final SingleVariableDeclaration svd) {
+    return "parameter " + svd.getName().getIdentifier();
+  }
+
+  static String variable(final SingleVariableDeclaration svd) {
+    return "variable " + svd.getName().getIdentifier();
   }
 
   static String name(final MethodDeclaration method) {

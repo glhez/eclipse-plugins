@@ -1,6 +1,5 @@
 package com.github.glhez.eclipse.plugins.sonarquickfix;
 
-import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +17,12 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.ChildListPropertyDescriptor;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.ModuleDeclaration;
-import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.eclipse.jdt.core.dom.RecordDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
@@ -33,6 +31,19 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator2;
+
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.AnnotationTypeSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.EnumSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.FieldSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.MethodSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.ModuleSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.PackageSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.RecordSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.SingleVariableDeclarationSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.SuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.TypeSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.VariableExpressionSuppressWarningsCandidate;
+import com.github.glhez.eclipse.plugins.sonarquickfix.SuppressWarningCandidates.VariableStatementSuppressWarningsCandidate;
 
 public final class SonarQuickFixResolutionGenerator implements IMarkerResolutionGenerator2 {
 
@@ -149,43 +160,31 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       var node = findSmallestNode(ast, offset);
       for (var n = node; n != null; n = n.getParent()) {
         switch (n) {
-          case VariableDeclarationStatement v -> candidates.add(v, VariableDeclarationStatement.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
-                                                                QuickFixNamer::name);
-          case VariableDeclarationExpression v -> candidates.add(v, VariableDeclarationExpression.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
-                                                                 QuickFixNamer::name);
-          case FieldDeclaration f -> candidates.add(f, f.getModifiersProperty(), ElementType.LOCAL_VARIABLE, QuickFixNamer::name);
-          case SingleVariableDeclaration v -> candidates.add(v, SingleVariableDeclaration.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
-                                                             QuickFixNamer::name);
-          case null, default -> {
-            // NOOP
+          case SingleVariableDeclaration v -> candidates.add(new SingleVariableDeclarationSuppressWarningsCandidate(v));
+
+          case VariableDeclarationStatement decl -> candidates.add(new VariableStatementSuppressWarningsCandidate(decl));
+          case VariableDeclarationExpression decl -> candidates.add(new VariableExpressionSuppressWarningsCandidate(decl));
+          case FieldDeclaration decl -> candidates.add(new FieldSuppressWarningsCandidate(decl));
+
+          case MethodDeclaration decl -> candidates.add(new MethodSuppressWarningsCandidate(decl));
+          case EnumDeclaration decl -> candidates.add(new EnumSuppressWarningsCandidate(decl));
+          case RecordDeclaration decl -> candidates.add(new RecordSuppressWarningsCandidate(decl));
+          case AnnotationTypeDeclaration decl -> candidates.add(new AnnotationTypeSuppressWarningsCandidate(decl));
+          case TypeDeclaration decl -> candidates.add(new TypeSuppressWarningsCandidate(decl));
+          default -> {
+            // not supported
           }
-        }
-      }
-
-      // Parameters of the innermost enclosing method/constructor.
-      var method = ancestor(node, MethodDeclaration.class);
-      if (method != null) {
-        for (var item : method.parameters()) {
-          candidates.add((SingleVariableDeclaration) item, SingleVariableDeclaration.MODIFIERS2_PROPERTY, ElementType.PARAMETER, QuickFixNamer::name);
-        }
-        candidates.add(method, method.getModifiersProperty(), ElementType.METHOD, QuickFixNamer::name);
-      }
-
-      // All enclosing classes, innermost first.
-      for (var n = node; n != null; n = n.getParent()) {
-        if (n instanceof TypeDeclaration type) {
-          candidates.add(type, type.getModifiersProperty(), ElementType.TYPE, QuickFixNamer::name);
         }
       }
 
       var pkg = ast.getPackage();
       if (pkg != null && !pkg.getName().getFullyQualifiedName().isBlank()) {
-        candidates.add(pkg, PackageDeclaration.ANNOTATIONS_PROPERTY, ElementType.PACKAGE, QuickFixNamer::name);
+        candidates.add(new PackageSuppressWarningsCandidate(pkg));
       }
 
       var module = ast.getModule();
       if (module != null) {
-        candidates.add(module, ModuleDeclaration.ANNOTATIONS_PROPERTY, ElementType.MODULE, QuickFixNamer::name);
+        candidates.add(new ModuleSuppressWarningsCandidate(module));
       }
       return candidates;
     }
@@ -206,19 +205,10 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       });
       return best[0];
     }
-
-    private static <T extends ASTNode> T ancestor(final ASTNode node, final Class<T> type) {
-      for (var n = node; n != null; n = n.getParent()) {
-        if (type.isInstance(n)) {
-          return type.cast(n);
-        }
-      }
-      return null;
-    }
   }
 
   static class CandidateList {
-    private final List<Candidate> candidates;
+    private final List<SuppressWarningsCandidate<? extends ASTNode>> candidates;
     private final String ruleKey;
 
     public CandidateList(final String ruleKey) {
@@ -226,53 +216,29 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       this.ruleKey = ruleKey;
     }
 
-    public <T extends ASTNode> void add(final T target, final ChildListPropertyDescriptor property, final ElementType targetElementType,
-        final Function<T, String> description) {
-      if (property == null || alreadySuppressed(target, property, this.ruleKey)) {
+    public <T extends ASTNode> void add(final SuppressWarningsCandidate<T> swc) {
+      if (swc.alreadySuppressed(ruleKey)) {
         return;
       }
 
       // Avoid duplicate choices for the same AST target.
       for (var existing : candidates) {
-        if (existing.match(target)) {
+        if (existing.match(swc.target())) {
           return;
         }
       }
-      candidates.add(new Candidate(target, property, targetElementType, description.apply(target)));
+      candidates.add(swc);
     }
 
-    public <U> Stream<U> map(final Function<Candidate, U> mapper) {
+    public <U> Stream<U> map(final Function<SuppressWarningsCandidate<? extends ASTNode>, U> mapper) {
       return candidates.stream().map(mapper);
     }
 
-    private static boolean alreadySuppressed(final ASTNode target, final ChildListPropertyDescriptor property, final String ruleKey) {
-      var value = target.getStructuralProperty(property);
-      if (!(value instanceof List<?> list)) {
-        return false;
-      }
-
-      for (Object item : list) {
-        if (item instanceof Annotation annotation
-            && annotation.getTypeName().getFullyQualifiedName()
-                         .endsWith("SuppressWarnings")
-            && annotation.toString().contains(ruleKey)) {
-          return true;
-        }
-      }
-      return false;
-    }
   }
 
   static void log(final String message, final Throwable e) {
     org.eclipse.core.runtime.Platform.getLog(org.eclipse.core.runtime.Platform.getBundle(PLUGIN_ID))
                                      .log(new Status(IStatus.ERROR, PLUGIN_ID, message, e));
-  }
-
-  static final record Candidate(ASTNode target, ChildListPropertyDescriptor property, ElementType targetElementType, String description) {
-
-    public boolean match(final ASTNode target) {
-      return this.target == target;
-    }
   }
 
   static class SuperPrivateRuntimeExceptionAgainstCheckedException extends RuntimeException {
