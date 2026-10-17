@@ -194,6 +194,17 @@ class SuppressWarningCandidates {
     }
   }
 
+  static final class MethodSuppressWarningsCandidate extends AbstractBodyDeclarationSuppressWarningsCandidate<MethodDeclaration> {
+    public MethodSuppressWarningsCandidate(final MethodDeclaration target) {
+      super(target, ElementType.METHOD);
+    }
+
+    @Override
+    public String toString0() {
+      return (target.isConstructor() ? "constructor" : "method") + " " + target.getName().getIdentifier();
+    }
+  }
+
   abstract static sealed class AbstractTypeDeclarationSuppressWarningsCandidate<T extends AbstractTypeDeclaration>
       extends AbstractBodyDeclarationSuppressWarningsCandidate<T> {
     private final String prefix;
@@ -205,18 +216,7 @@ class SuppressWarningCandidates {
 
     @Override
     public final String toString0() {
-      return prefix + " " + target.toString();
-    }
-  }
-
-  static final class MethodSuppressWarningsCandidate extends AbstractBodyDeclarationSuppressWarningsCandidate<MethodDeclaration> {
-    public MethodSuppressWarningsCandidate(final MethodDeclaration target) {
-      super(target, ElementType.METHOD);
-    }
-
-    @Override
-    public String toString0() {
-      return (target.isConstructor() ? "constructor" : "method") + " " + target.getName();
+      return prefix + " " + target.getName();
     }
   }
 
