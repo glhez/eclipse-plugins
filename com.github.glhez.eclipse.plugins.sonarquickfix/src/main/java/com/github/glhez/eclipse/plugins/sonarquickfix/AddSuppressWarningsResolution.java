@@ -84,15 +84,15 @@ final class AddSuppressWarningsResolution
   }
 
   private void createAnnotation(final ASTNode target, final ChildListPropertyDescriptor property, final AST ast, final ASTRewrite rewrite) {
-    var annotation = ast.newNormalAnnotation();
-    annotation.setTypeName(ast.newSimpleName(SUPPRESS_WARNINGS_ANNOTATION_NAME));
-
     var valuePair = ast.newMemberValuePair();
     valuePair.setName(ast.newSimpleName(VALUE_ATTRIBUTE));
 
     var value = ast.newStringLiteral();
     value.setLiteralValue(ruleKey);
-    annotation.values().add(value);
+
+    var annotation = ast.newSingleMemberAnnotation();
+    annotation.setTypeName(ast.newSimpleName(SUPPRESS_WARNINGS_ANNOTATION_NAME));
+    annotation.setValue(value);
 
     rewrite.getListRewrite(target, property).insertFirst(annotation, null);
   }
@@ -123,8 +123,7 @@ final class AddSuppressWarningsResolution
       }
       case NormalAnnotation normal -> {
         var replacement = ast.newNormalAnnotation();
-        replacement.setTypeName(
-                                (Name) ASTNode.copySubtree(ast, existing.getTypeName()));
+        replacement.setTypeName((Name) ASTNode.copySubtree(ast, existing.getTypeName()));
 
         for (Object item : normal.values()) {
           var oldPair = (MemberValuePair) item;
