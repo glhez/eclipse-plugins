@@ -1,5 +1,6 @@
 package com.github.glhez.eclipse.plugins.sonarquickfix;
 
+import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -148,10 +149,13 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       var node = findSmallestNode(ast, offset);
       for (var n = node; n != null; n = n.getParent()) {
         switch (n) {
-          case VariableDeclarationStatement v -> candidates.add(v, VariableDeclarationStatement.MODIFIERS2_PROPERTY, QuickFixNamer::name);
-          case VariableDeclarationExpression v -> candidates.add(v, VariableDeclarationExpression.MODIFIERS2_PROPERTY, QuickFixNamer::name);
-          case FieldDeclaration f -> candidates.add(f, f.getModifiersProperty(), QuickFixNamer::name);
-          case SingleVariableDeclaration v -> candidates.add(v, SingleVariableDeclaration.MODIFIERS2_PROPERTY, QuickFixNamer::name);
+          case VariableDeclarationStatement v -> candidates.add(v, VariableDeclarationStatement.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
+                                                                QuickFixNamer::name);
+          case VariableDeclarationExpression v -> candidates.add(v, VariableDeclarationExpression.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
+                                                                 QuickFixNamer::name);
+          case FieldDeclaration f -> candidates.add(f, f.getModifiersProperty(), ElementType.LOCAL_VARIABLE, QuickFixNamer::name);
+          case SingleVariableDeclaration v -> candidates.add(v, SingleVariableDeclaration.MODIFIERS2_PROPERTY, ElementType.LOCAL_VARIABLE,
+                                                             QuickFixNamer::name);
           case null, default -> {
             // NOOP
           }
@@ -162,26 +166,26 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       var method = ancestor(node, MethodDeclaration.class);
       if (method != null) {
         for (var item : method.parameters()) {
-          candidates.add((SingleVariableDeclaration) item, SingleVariableDeclaration.MODIFIERS2_PROPERTY, QuickFixNamer::name);
+          candidates.add((SingleVariableDeclaration) item, SingleVariableDeclaration.MODIFIERS2_PROPERTY, ElementType.PARAMETER, QuickFixNamer::name);
         }
-        candidates.add(method, method.getModifiersProperty(), QuickFixNamer::name);
+        candidates.add(method, method.getModifiersProperty(), ElementType.METHOD, QuickFixNamer::name);
       }
 
       // All enclosing classes, innermost first.
       for (var n = node; n != null; n = n.getParent()) {
         if (n instanceof TypeDeclaration type) {
-          candidates.add(type, type.getModifiersProperty(), QuickFixNamer::name);
+          candidates.add(type, type.getModifiersProperty(), ElementType.TYPE, QuickFixNamer::name);
         }
       }
 
       var pkg = ast.getPackage();
       if (pkg != null && !pkg.getName().getFullyQualifiedName().isBlank()) {
-        candidates.add(pkg, PackageDeclaration.ANNOTATIONS_PROPERTY, QuickFixNamer::name);
+        candidates.add(pkg, PackageDeclaration.ANNOTATIONS_PROPERTY, ElementType.PACKAGE, QuickFixNamer::name);
       }
 
       var module = ast.getModule();
       if (module != null) {
-        candidates.add(module, ModuleDeclaration.ANNOTATIONS_PROPERTY, QuickFixNamer::name);
+        candidates.add(module, ModuleDeclaration.ANNOTATIONS_PROPERTY, ElementType.MODULE, QuickFixNamer::name);
       }
       return candidates;
     }
@@ -222,7 +226,8 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
       this.ruleKey = ruleKey;
     }
 
-    public <T extends ASTNode> void add(final T target, final ChildListPropertyDescriptor property, final Function<T, String> description) {
+    public <T extends ASTNode> void add(final T target, final ChildListPropertyDescriptor property, final ElementType targetElementType,
+        final Function<T, String> description) {
       if (property == null || alreadySuppressed(target, property, this.ruleKey)) {
         return;
       }
@@ -233,7 +238,7 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
           return;
         }
       }
-      candidates.add(new Candidate(target, property, description.apply(target)));
+      candidates.add(new Candidate(target, property, targetElementType, description.apply(target)));
     }
 
     public <U> Stream<U> map(final Function<Candidate, U> mapper) {
@@ -263,7 +268,7 @@ public final class SonarQuickFixResolutionGenerator implements IMarkerResolution
                                      .log(new Status(IStatus.ERROR, PLUGIN_ID, message, e));
   }
 
-  static final record Candidate(ASTNode target, ChildListPropertyDescriptor property, String description) {
+  static final record Candidate(ASTNode target, ChildListPropertyDescriptor property, ElementType targetElementType, String description) {
 
     public boolean match(final ASTNode target) {
       return this.target == target;

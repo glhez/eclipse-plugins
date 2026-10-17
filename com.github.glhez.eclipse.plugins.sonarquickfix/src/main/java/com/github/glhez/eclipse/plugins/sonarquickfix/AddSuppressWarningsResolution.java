@@ -20,7 +20,6 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.ui.IMarkerResolution;
@@ -58,7 +57,7 @@ final class AddSuppressWarningsResolution
   }
 
   private void applyAnnotation(final ASTNode target, final ChildListPropertyDescriptor property)
-      throws JavaModelException, MalformedTreeException, BadLocationException {
+      throws JavaModelException, MalformedTreeException {
 
     var compilationUnit = (CompilationUnit) target.getRoot();
     var ast = compilationUnit.getAST();
@@ -78,10 +77,9 @@ final class AddSuppressWarningsResolution
     }
 
     var document = new Document(unit.getSource());
-    var edit = rewrite.rewriteAST(document, unit.getJavaProject().getOptions(true));
-    edit.apply(document);
+    var edits = rewrite.rewriteAST(document, unit.getJavaProject().getOptions(true));
 
-    unit.getBuffer().setContents(document.get());
+    unit.applyTextEdit(edits, null);
     unit.save(null, true);
   }
 
