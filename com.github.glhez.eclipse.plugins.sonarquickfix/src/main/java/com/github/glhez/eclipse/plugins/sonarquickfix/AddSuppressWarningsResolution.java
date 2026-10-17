@@ -16,6 +16,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
@@ -98,12 +99,11 @@ final class AddSuppressWarningsResolution
     rewrite.getListRewrite(target, property).insertFirst(annotation, null);
   }
 
-  private void updateAnnotations(final AST ast, final ASTRewrite rewrite, final Annotation existing, final List<Expression> values) {
-    var replacement = ast.newNormalAnnotation();
-    replacement.setTypeName((Name) ASTNode.copySubtree(ast, existing.getTypeName()));
-
-    var valuePair = ast.newMemberValuePair();
-    valuePair.setName(ast.newSimpleName(VALUE_ATTRIBUTE));
+  private void updateAnnotations(
+      final AST ast,
+      final ASTRewrite rewrite,
+      final Annotation existing,
+      final List<Expression> values) {
 
     var array = ast.newArrayInitializer();
     for (Expression value : values) {
@@ -111,10 +111,43 @@ final class AddSuppressWarningsResolution
     }
     array.expressions().add(newStringLiteral(ast, ruleKey));
 
-    valuePair.setValue(array);
-    replacement.values().add(valuePair);
+    /*
+     * try to keep value = {...} if present, otherwise do not add it (Sonar will keep
+     * making warning otherwise (@SupressWarnings(value = {...}) does not disable the
+     * marker.
+     */
+    switch (existing) {
+      case SingleMemberAnnotation _ -> {
+        var replacement = ast.newSingleMemberAnnotation();
+        replacement.setTypeName((Name) ASTNode.copySubtree(ast, existing.getTypeName()));
+        replacement.setValue(array);
+        rewrite.replace(existing, replacement, null);
+      }
+      case NormalAnnotation normal -> {
+        var replacement = ast.newNormalAnnotation();
+        replacement.setTypeName(
+                                (Name) ASTNode.copySubtree(ast, existing.getTypeName()));
 
-    rewrite.replace(existing, replacement, null);
+        for (Object item : normal.values()) {
+          var oldPair = (MemberValuePair) item;
+          var pair = ast.newMemberValuePair();
+          pair.setName((SimpleName) ASTNode.copySubtree(ast, oldPair.getName()));
+
+          if (VALUE_ATTRIBUTE.equals(oldPair.getName().getIdentifier())) {
+            pair.setValue(array);
+          } else {
+            pair.setValue((Expression) ASTNode.copySubtree(ast, oldPair.getValue()));
+          }
+
+          replacement.values().add(pair);
+        }
+
+        rewrite.replace(existing, replacement, null);
+      }
+      default -> {
+        // noop
+      }
+    }
   }
 
   private @Nullable Annotation findExistingAnnotation(final ASTNode target, final ChildListPropertyDescriptor property) {
